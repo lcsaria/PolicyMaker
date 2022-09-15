@@ -1,0 +1,61 @@
+.sidebars {
+  height: 100%;
+  width: 350px;
+  background-color: #fff;
+  transition: 0.2s;
+}
+
+.sidebars.collapsed {
+  width: 70px;
+  transition: 0.2s;
+}
+
+.sidebarlist {
+  height: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebarlist .meow {
+  width: 100%;
+  height: 57px;
+  list-style-type: none;
+  border-bottom: 1px solid #c7c7c7;
+  border-right: 1px solid #c7c7c7;
+  margin: 0;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebarlist .row {
+  width: 100%;
+  height: 58px;
+  list-style-type: none;
+  border-bottom: 1px solid #c7c7c7;
+  margin: 0;
+  color: #000;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebarlist .row:hover {
+  cursor: pointer;
+  /* background-color: #c7c7c7; */
+  color: #000000;
+}
+
+.sidebarlist #active {
+  background-color: #000000;
+  color: #fff;
+}
+
+.row #icon {
+  flex: 20%;
+  display: grid;
+  place-items: center;
+}
+.row #title {
+  flex: 80%;
+  margin-left: -20px;
+}

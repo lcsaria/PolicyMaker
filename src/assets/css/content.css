@@ -1,0 +1,17 @@
+#outer-container {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+#sidebar {
+  display: table-cell;
+  width: 5%;
+  vertical-align: top;
+}
+
+#content {
+  display: table-cell;
+  width: 95%;
+  vertical-align: top;
+}
