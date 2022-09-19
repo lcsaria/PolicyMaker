@@ -1,4 +1,6 @@
+import { delay } from "lodash";
 import React, { useState } from "react";
+import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Services from "../api/Services";
@@ -13,17 +15,11 @@ function AddCustomerAccount() {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [save, setSave] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
-  const checkSave = () => {
-    if (
-      acctNo !== "" &&
-      firstName !== "" &&
-      lastName !== "" &&
-      address !== ""
-    ) {
-      setSave(true);
-    }
-  };
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const changeInput = (e) => {
     let value = e.target.value;
@@ -40,12 +36,15 @@ function AddCustomerAccount() {
     }
   };
 
-  const validateAccountNumber = (e) => {
+  const validateAccountNumber = async (e) => {
     e.preventDefault();
     let accountNumber = {
       accountNumber: acctNo,
     };
     if (accountNumber.accountNumber === "") {
+      setLoading(true);
+      await sleep(3000);
+      setLoading(false);
       toast.error("Account number is empty.", {
         position: "top-right",
         autoClose: 5000,
@@ -56,6 +55,9 @@ function AddCustomerAccount() {
         progress: undefined,
       });
     } else {
+      setLoading(true);
+      await sleep(3000);
+      setLoading(false);
       Services.searchAccountNumber(accountNumber)
         .then(() => {
           // if exists
@@ -82,9 +84,11 @@ function AddCustomerAccount() {
         });
     }
   };
-  const validate = (e) => {
-    e.preventDefault();
 
+  const validate = async (e) => {
+    e.preventDefault();
+    setSave(true);
+    await sleep(3000);
     if (
       acctNo === "" &&
       firstName === "" &&
@@ -112,6 +116,7 @@ function AddCustomerAccount() {
           progress: undefined,
         });
       } else {
+        setSave(false);
         handleSubmit(e);
       }
     }
@@ -128,7 +133,7 @@ function AddCustomerAccount() {
     console.log(JSON.stringify(customerAccount));
 
     Services.createCustomerAccount(customerAccount)
-      .then((res) => {
+      .then(() => {
         navigate("/customer_account/create");
         toast.success("Account successfully created.", {
           position: "top-right",
@@ -155,6 +160,7 @@ function AddCustomerAccount() {
     setFirstName("");
     setLastName("");
     setAddress("");
+    setSave(false);
   };
 
   const reset = (e) => {
@@ -163,6 +169,7 @@ function AddCustomerAccount() {
     setFirstName("");
     setLastName("");
     setAddress("");
+    setSave(false);
   };
 
   return (
@@ -196,16 +203,36 @@ function AddCustomerAccount() {
                           />
                         </div>
                         <div className="col-5">
-                          <button
-                            className="btn btn-success btn-block"
-                            onClick={validateAccountNumber}
-                          >
-                            <i
-                              className="fa-solid fa-square-check mr-3"
-                              style={{ marginRight: "10px" }}
-                            />
-                            <span className="ml-3">Verify</span>
-                          </button>
+                          {isLoading === false ? (
+                            <button
+                              className="col-12 btn btn-success btn-block"
+                              onClick={validateAccountNumber}
+                            >
+                              <i
+                                className="fa-solid fa-square-check mr-3"
+                                style={{ marginRight: "10px" }}
+                              />
+                              <span className="ml-3">Verify</span>
+                            </button>
+                          ) : (
+                            <button
+                              className="col-12 btn btn-success btn-block"
+                              onClick={validateAccountNumber}
+                              disabled={true}
+                            >
+                              <span className="text-white">
+                                <Spinner
+                                  animation="border"
+                                  variant="light"
+                                  size="sm"
+                                  style={{
+                                    marginRight: "10px",
+                                  }}
+                                />
+                              </span>
+                              <span className="ml-3">Verify</span>
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -243,13 +270,19 @@ function AddCustomerAccount() {
                       {save ? (
                         <button
                           className="btn btn-success mt-3 col-5"
-                          onClick={handleSubmit}
+                          onClick={validate}
                           disabled
                         >
-                          <i
-                            className="fa-solid fa-square-check mr-3"
-                            style={{ marginRight: "10px" }}
-                          />
+                          <span className="text-white">
+                            <Spinner
+                              animation="border"
+                              variant="light"
+                              size="sm"
+                              style={{
+                                marginRight: "10px",
+                              }}
+                            />
+                          </span>
                           <span className="ml-3">Save</span>
                         </button>
                       ) : (
@@ -270,7 +303,7 @@ function AddCustomerAccount() {
                         style={{ marginLeft: "10px" }}
                       >
                         <i
-                          class="fa-solid fa-rotate-right"
+                          className="fa-solid fa-rotate-right"
                           style={{ marginRight: "10px" }}
                         />
                         Reset

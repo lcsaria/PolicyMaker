@@ -42,7 +42,7 @@ function AddPolicy() {
     };
     Services.searchAccountNumber(customerAccount)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         toast.success(
           "Account #" + customerAccount.accountNumber + " exists. ",
           {
@@ -59,6 +59,7 @@ function AddPolicy() {
         setExist(true);
       })
       .catch((err) => {
+        console.log(err);
         toast.error("Not Exist. (" + err.response.status + ")", {
           position: "top-right",
           autoClose: 5000,
