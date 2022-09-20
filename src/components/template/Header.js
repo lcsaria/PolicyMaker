@@ -3,16 +3,22 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import { Sidebardata } from "./Sidebardata";
+import { Sidebardata } from "./Sidebardata";
 
 function Header() {
   const [width, setWidth] = useState(window.innerWidth);
 
-  const changeWidth = () => {
+  const detectSize = () => {
     setWidth(window.innerWidth);
   };
+
   useEffect(() => {
-    changeWidth();
+    console.log(width);
+    window.addEventListener("resize", detectSize);
+
+    return () => {
+      window.removeEventListener("resize", detectSize);
+    };
   }, [width]);
 
   return (
@@ -23,8 +29,27 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto ml-4"></Nav>
           <Nav>
-            <Nav.Link href="#features">About</Nav.Link>
-            <Nav.Link href="#pricing">Help</Nav.Link>
+            {width < 950 &&
+              Sidebardata.map((val, key) => {
+                return (
+                  <Nav.Link href={val.link}>
+                    <span className="p-3">{val.icon}</span>
+                    <span>{val.title}</span>
+                  </Nav.Link>
+                );
+              })}
+            <Nav.Link href="#features">
+              <span className="p-3">
+                <i class="fa-solid fa-circle-info"></i>
+              </span>
+              <span>About</span>
+            </Nav.Link>
+            <Nav.Link href="#pricing">
+              <span className="p-3">
+                <i class="fa-solid fa-question"></i>
+              </span>
+              <span>Help</span>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
