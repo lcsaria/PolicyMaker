@@ -13,7 +13,6 @@ function Header() {
   };
 
   useEffect(() => {
-    console.log(width);
     window.addEventListener("resize", detectSize);
 
     return () => {

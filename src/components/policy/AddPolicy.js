@@ -3,7 +3,7 @@ import { Container, Spinner } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import Stepper from "react-stepper-js";
 import DatePicker from "react-datepicker";
-import { parseISO, format, parse } from "date-fns";
+import { addMonths, format, parseISO } from "date-fns";
 
 import Services from "../api/Services";
 import Header from "../template/Header";
@@ -21,14 +21,22 @@ function AddPolicy() {
     id: null,
     effectiveDate: null,
     expirationDate: null,
+    type: null,
+    vehicles: null,
   });
 
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  const nextStep = () => {
+  const nextStep = async () => {
+    setLoading(true);
+    await sleep(3000);
+    setLoading(false);
     if (step < 4) {
       setStep(step + 1);
+      if (step === 1) {
+        console.log(policy);
+      }
     } else if (step === 4) {
       console.log("Done");
     }
@@ -52,14 +60,15 @@ function AddPolicy() {
   };
 
   const handleDateInput = (date) => {
-    let effective = format(new Date(date), "MM/dd/yyyy");
-    let effectiveDate = parse(effective, "MM/dd/yyyy", new Date());
+    let effective = new Date(date);
+    let parseDate = parseISO(effective.toISOString());
+    let expire = addMonths(new Date(date), 6);
+    let expireDate = format(new Date(expire), "MM/dd/yyyy");
     setPolicy({
       ...policy,
-      effectiveDate: effectiveDate,
-      expirationDate: effectiveDate,
+      effectiveDate: parseDate,
+      expirationDate: expireDate,
     });
-    console.log(policy);
   };
 
   const handleSearch = async (e) => {
@@ -174,11 +183,11 @@ function AddPolicy() {
                 </h3>
                 <Stepper
                   color="#23b561"
-                  fontSize="20px"
+                  fontSize="16px"
                   fontColor="#000000"
                   steps={[
                     { label: "POLICY" },
-                    { label: "POLICY HOLDER" },
+                    { label: "HOLDER" },
                     { label: "VEHICLES" },
                     { label: "CONFIRM" },
                   ]}
@@ -217,7 +226,14 @@ function AddPolicy() {
                               selected={policy.effectiveDate}
                               className="form-control"
                               name="effectiveDate"
-                              value={policy.effectiveDate}
+                              value={
+                                policy.effectiveDate === null
+                                  ? ""
+                                  : format(
+                                      new Date(policy.effectiveDate),
+                                      "MM/dd/yyyy"
+                                    )
+                              }
                               onChange={(e) => handleDateInput(e)}
                             />
                           </div>
@@ -230,10 +246,14 @@ function AddPolicy() {
                             <input
                               className="form-control"
                               name="expriationDate"
-                              value={format(
-                                new Date(policy.expirationDate),
-                                "MM/dd/yyyy"
-                              )}
+                              value={
+                                policy.expirationDate === null
+                                  ? null
+                                  : format(
+                                      new Date(policy.expirationDate),
+                                      "MM/dd/yyyy"
+                                    )
+                              }
                               disabled
                             />
                           </div>
@@ -245,7 +265,7 @@ function AddPolicy() {
                             </label>
                           </div>
                           <div className="col-12 col-md-4 col-lg-4 mt-3">
-                            <select class="form-control">
+                            <select className="form-control">
                               <option>----</option>
                               <option>Owner</option>
                               <option>Dependent</option>
@@ -286,11 +306,27 @@ function AddPolicy() {
                       "Submit"
                     ) : (
                       <>
-                        <span>Next</span>
-                        <i
-                          className="fa-solid fa-arrow-right"
-                          style={{ marginLeft: "1em" }}
-                        />
+                        {isLoading === false ? (
+                          <>
+                            <span>Next</span>
+                            <i
+                              className="fa-solid fa-arrow-right"
+                              style={{ marginLeft: "1em" }}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <span>Next</span>
+                            <span className="text-white">
+                              <Spinner
+                                animation="border"
+                                variant="light"
+                                size="sm"
+                                style={{ marginLeft: "1em" }}
+                              />
+                            </span>
+                          </>
+                        )}
                       </>
                     )}
                   </button>
