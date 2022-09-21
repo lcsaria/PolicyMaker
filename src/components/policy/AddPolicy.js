@@ -1,18 +1,31 @@
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
-import Stepper from "react-stepper-js";
-import "react-stepper-js/dist/index.css";
+import { Container, Spinner } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
-import Services from "../api/Services";
+import Stepper from "react-stepper-js";
+import DatePicker from "react-datepicker";
+import { parseISO, format, parse } from "date-fns";
 
+import Services from "../api/Services";
 import Header from "../template/Header";
 import Sidebar from "../template/Sidebar";
+
+import "react-stepper-js/dist/index.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 function AddPolicy() {
   const [step, setStep] = useState(0);
   const [accountNumber, setAccountNumber] = useState("");
   const [isExist, setExist] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [policy, setPolicy] = useState({
+    id: null,
+    effectiveDate: null,
+    expirationDate: null,
+  });
 
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
   const nextStep = () => {
     if (step < 3) {
       setStep(step + 1);
@@ -32,14 +45,31 @@ function AddPolicy() {
     if (e.target.name === "accountNumber") {
       setAccountNumber(e.target.value);
       console.log(accountNumber);
+    } else if (e.target.name === "policyNumber") {
+      setPolicy({ ...policy, id: e.target.value });
+      console.log(policy);
     }
   };
 
-  const handleSearch = (e) => {
+  const handleDateInput = (date) => {
+    let effective = format(new Date(date), "MM/dd/yyyy");
+    let effectiveDate = parse(effective, "MM/dd/yyyy", new Date());
+    setPolicy({
+      ...policy,
+      effectiveDate: effectiveDate,
+      expirationDate: effectiveDate,
+    });
+    console.log(policy);
+  };
+
+  const handleSearch = async (e) => {
     e.preventDefault();
     let customerAccount = {
       accountNumber: accountNumber,
     };
+    setLoading(true);
+    await sleep(3000);
+    setLoading(false);
     Services.searchAccountNumber(customerAccount)
       .then((res) => {
         console.log(res);
@@ -82,33 +112,57 @@ function AddPolicy() {
         <div id="content">
           <Container className="p-5">
             <div className="row">
-              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                <h1 className="mb-5">Add Policy</h1>
+              <div className="col-12 col-md-4 col-lg-3 ">
+                <h1>Add Policy</h1>
               </div>
             </div>
 
             {step !== 0 ? null : (
-              <div className="form-group mt-5">
-                <div className="row">
-                  <div className="col-12 col-md-4 col-lg-3 mt-2">
+              <div className="form-group">
+                <div className="row flex justify-center">
+                  <div className="col-12 col-sm-12 col-md-4 col-lg-3">
                     <label className="mt-2">Enter Account Number: </label>
                   </div>
-                  <div className="col-12 col-md-4 col-lg-4 mt-3">
+                  <div className="col-12 col-sm-12 col-md-4 col-lg-4">
                     <input
                       type="text"
                       className="form-control"
                       placeholder="Account Number"
                       name="accountNumber"
                       value={accountNumber}
+                      maxLength={4}
                       onChange={handleInput}
                       aria-label="Account Number"
                     />
                   </div>
-                  <div className="col-12 col-md-4 col-lg-2 mt-3">
-                    <button className="btn btn-primary" onClick={handleSearch}>
-                      <i className="fa-solid fa-magnifying-glass" />
-                      <span className="p-2">Search</span>
-                    </button>
+                  <div className="col-12 col-sm-12 col-md-4 col-lg-2">
+                    {isLoading === true ? (
+                      <button
+                        className="btn btn-primary col-12"
+                        onClick={handleSearch}
+                        disabled
+                      >
+                        <span className="text-white">
+                          <Spinner
+                            animation="border"
+                            variant="light"
+                            size="sm"
+                            style={{
+                              marginRight: "10px",
+                            }}
+                          />
+                        </span>
+                        <span className="p-2">Search</span>
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-primary col-12"
+                        onClick={handleSearch}
+                      >
+                        <i className="fa-solid fa-magnifying-glass" />
+                        <span className="p-2">Search</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -143,7 +197,10 @@ function AddPolicy() {
                               type="text"
                               className="form-control"
                               name="policyNumber"
+                              value={policy.id}
+                              onChange={handleInput}
                               aria-label="Account Number"
+                              maxLength={6}
                             />
                           </div>
                         </div>
@@ -154,11 +211,13 @@ function AddPolicy() {
                             </label>
                           </div>
                           <div className="col-12 col-md-4 col-lg-4 mt-3">
-                            <input
-                              type="text"
+                            <DatePicker
+                              closeOnScroll={true}
+                              selected={policy.effectiveDate}
                               className="form-control"
                               name="effectiveDate"
-                              aria-label="Account Number"
+                              value={policy.effectiveDate}
+                              onChange={(e) => handleDateInput(e)}
                             />
                           </div>
                         </div>
@@ -168,11 +227,28 @@ function AddPolicy() {
                           </div>
                           <div className="col-12 col-md-4 col-lg-4 mt-3">
                             <input
-                              type="text"
                               className="form-control"
                               name="expriationDate"
-                              aria-label="Account Number"
+                              value={format(
+                                new Date(policy.expirationDate),
+                                "MM/dd/yyyy"
+                              )}
+                              disabled
                             />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">
+                              Type of Policy Holder
+                            </label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <select class="form-control">
+                              <option>----</option>
+                              <option>Owner</option>
+                              <option>Dependent</option>
+                            </select>
                           </div>
                         </div>
                       </div>
