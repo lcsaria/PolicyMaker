@@ -21,7 +21,7 @@ function AddPolicy() {
     id: null,
     effectiveDate: null,
     expirationDate: null,
-    type: null,
+    type: 0,
     vehicles: null,
   });
 
@@ -52,10 +52,8 @@ function AddPolicy() {
     e.preventDefault();
     if (e.target.name === "accountNumber") {
       setAccountNumber(e.target.value);
-      console.log(accountNumber);
-    } else if (e.target.name === "policyNumber") {
-      setPolicy({ ...policy, id: e.target.value });
-      console.log(policy);
+    } else if (step === 1) {
+      setPolicy({ ...policy, [e.target.name]: e.target.value });
     }
   };
 
@@ -206,7 +204,7 @@ function AddPolicy() {
                             <input
                               type="text"
                               className="form-control"
-                              name="policyNumber"
+                              name="id"
                               value={policy.id}
                               onChange={handleInput}
                               aria-label="Account Number"
@@ -265,10 +263,17 @@ function AddPolicy() {
                             </label>
                           </div>
                           <div className="col-12 col-md-4 col-lg-4 mt-3">
-                            <select className="form-control">
-                              <option>----</option>
-                              <option>Owner</option>
-                              <option>Dependent</option>
+                            <select
+                              className="form-control form-select"
+                              name="type"
+                              value={policy.type === 0 ? 0 : policy.type}
+                              onChange={handleInput}
+                            >
+                              <option selected value="0">
+                                ----
+                              </option>
+                              <option value="1">Owner</option>
+                              <option value="2">Dependent</option>
                             </select>
                           </div>
                         </div>
