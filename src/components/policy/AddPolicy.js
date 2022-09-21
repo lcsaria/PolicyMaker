@@ -27,9 +27,9 @@ function AddPolicy() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
   const nextStep = () => {
-    if (step < 3) {
+    if (step < 4) {
       setStep(step + 1);
-    } else if (step === 3) {
+    } else if (step === 4) {
       console.log("Done");
     }
   };
@@ -177,9 +177,10 @@ function AddPolicy() {
                   fontSize="20px"
                   fontColor="#000000"
                   steps={[
-                    { label: "Step 1" },
-                    { label: "Step 2" },
-                    { label: "Step 3" },
+                    { label: "POLICY" },
+                    { label: "POLICY HOLDER" },
+                    { label: "VEHICLES" },
+                    { label: "CONFIRM" },
                   ]}
                   currentStep={step}
                 />
@@ -251,6 +252,21 @@ function AddPolicy() {
                             </select>
                           </div>
                         </div>
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">No. of Vehicles</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="vehicles"
+                              value={policy.vehicles}
+                              onChange={handleInput}
+                              maxLength={2}
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -266,7 +282,7 @@ function AddPolicy() {
                     </button>
                   ) : null}
                   <button className="btn btn-warning" onClick={nextStep}>
-                    {step === 3 ? (
+                    {step === 4 ? (
                       "Submit"
                     ) : (
                       <>
