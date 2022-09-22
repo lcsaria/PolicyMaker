@@ -31,7 +31,7 @@ function Header() {
             {width < 950 &&
               Sidebardata.map((val, key) => {
                 return (
-                  <Nav.Link href={val.link}>
+                  <Nav.Link href={val.link} key={key}>
                     <span className="p-3">{val.icon}</span>
                     <span>{val.title}</span>
                   </Nav.Link>

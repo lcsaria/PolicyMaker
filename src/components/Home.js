@@ -13,7 +13,7 @@ function Home() {
         <div id="content">
           <div className="container mt-5">
             <h1>PolicyMaker</h1>
-            <p className="text-justify">
+            <p className="mt-5" style={{ textAlign: "justify" }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ipsum
               dolor sit amet consectetur adipiscing. Urna neque viverra justo
