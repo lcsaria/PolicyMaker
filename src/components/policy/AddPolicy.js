@@ -295,6 +295,12 @@ function AddPolicy() {
                       </div>
                     </div>
                   )}
+                  {step !== 2 ? null : (
+                    <div>
+                      <h3>POLICY HOLDER</h3>
+                      <p>dsadsadsad</p>
+                    </div>
+                  )}
                 </div>
                 <div className="d-flex justify-content-around mt-5">
                   {step > 1 ? (
