@@ -11,6 +11,7 @@ import Sidebar from "../template/Sidebar";
 
 import "react-stepper-js/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";
+import AddPolicyHolder from "./AddPolicyHolder";
 
 function AddPolicy() {
   const [step, setStep] = useState(0);
@@ -295,12 +296,7 @@ function AddPolicy() {
                       </div>
                     </div>
                   )}
-                  {step !== 2 ? null : (
-                    <div>
-                      <h3>POLICY HOLDER</h3>
-                      <p>dsadsadsad</p>
-                    </div>
-                  )}
+                  {step !== 2 ? null : <AddPolicyHolder data={policy} />}
                 </div>
                 <div className="d-flex justify-content-around mt-5">
                   {step > 1 ? (
