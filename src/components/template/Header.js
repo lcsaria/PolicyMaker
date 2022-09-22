@@ -39,13 +39,13 @@ function Header() {
               })}
             <Nav.Link href="#features">
               <span className="p-3">
-                <i class="fa-solid fa-circle-info"></i>
+                <i className="fa-solid fa-circle-info"></i>
               </span>
               <span>About</span>
             </Nav.Link>
             <Nav.Link href="#pricing">
               <span className="p-3">
-                <i class="fa-solid fa-question"></i>
+                <i className="fa-solid fa-question"></i>
               </span>
               <span>Help</span>
             </Nav.Link>
