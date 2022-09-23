@@ -35,9 +35,6 @@ function AddPolicy() {
     setLoading(false);
     if (step < 4) {
       setStep(step + 1);
-      if (step === 1) {
-        submitPolicy();
-      }
     } else if (step === 4) {
       console.log("Done");
     }
