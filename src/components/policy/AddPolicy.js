@@ -19,7 +19,7 @@ function AddPolicy() {
   const [isExist, setExist] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [policy, setPolicy] = useState({
-    id: null,
+    policyNumber: null,
     effectiveDate: null,
     expirationDate: null,
     type: 0,
@@ -36,11 +36,22 @@ function AddPolicy() {
     if (step < 4) {
       setStep(step + 1);
       if (step === 1) {
-        console.log(policy);
+        submitPolicy();
       }
     } else if (step === 4) {
       console.log("Done");
     }
+  };
+
+  const submitPolicy = () => {
+    console.log("policy");
+    Services.createPolicy(policy)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const prevStep = () => {
@@ -56,18 +67,29 @@ function AddPolicy() {
     } else if (step === 1) {
       setPolicy({ ...policy, [e.target.name]: e.target.value });
     }
+    console.log(policy);
   };
 
   const handleDateInput = (date) => {
+    console.log(date);
     let effective = new Date(date);
-    let parseDate = parseISO(effective.toISOString());
+    var parseDate = date === null ? null : parseISO(effective.toISOString());
     let expire = addMonths(new Date(date), 6);
     let expireDate = format(new Date(expire), "MM/dd/yyyy");
-    setPolicy({
-      ...policy,
-      effectiveDate: parseDate,
-      expirationDate: expireDate,
-    });
+    if (parseDate === null) {
+      setPolicy({
+        ...policy,
+        effectiveDate: null,
+        expirationDate: null,
+      });
+    } else {
+      setPolicy({
+        ...policy,
+        effectiveDate: parseDate,
+        expirationDate: expireDate,
+      });
+    }
+    console.log(policy);
   };
 
   const handleSearch = async (e) => {
@@ -76,7 +98,7 @@ function AddPolicy() {
       accountNumber: accountNumber,
     };
     setLoading(true);
-    await sleep(3000);
+    await sleep(2000);
     setLoading(false);
     Services.searchAccountNumber(customerAccount)
       .then((res) => {
@@ -205,10 +227,9 @@ function AddPolicy() {
                             <input
                               type="text"
                               className="form-control"
-                              name="id"
-                              value={policy.id}
+                              name="policyNumber"
+                              value={policy.policyNumber}
                               onChange={handleInput}
-                              aria-label="Account Number"
                               maxLength={6}
                             />
                           </div>
@@ -234,6 +255,7 @@ function AddPolicy() {
                                     )
                               }
                               onChange={(e) => handleDateInput(e)}
+                              isClearable
                             />
                           </div>
                         </div>
@@ -245,15 +267,15 @@ function AddPolicy() {
                             <input
                               className="form-control"
                               name="expriationDate"
+                              disabled
                               value={
                                 policy.expirationDate === null
-                                  ? null
+                                  ? ""
                                   : format(
                                       new Date(policy.expirationDate),
                                       "MM/dd/yyyy"
                                     )
                               }
-                              disabled
                             />
                           </div>
                         </div>
