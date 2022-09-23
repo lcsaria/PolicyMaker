@@ -3,7 +3,6 @@ import { Container, Spinner } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import Stepper from "react-stepper-js";
 import DatePicker from "react-datepicker";
-import { addMonths, format, parseISO } from "date-fns";
 
 import Services from "../api/Services";
 import Header from "../template/Header";
@@ -12,6 +11,7 @@ import Sidebar from "../template/Sidebar";
 import "react-stepper-js/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";
 import AddPolicyHolder from "./AddPolicyHolder";
+import moment from "moment";
 
 function AddPolicy() {
   const [step, setStep] = useState(0);
@@ -64,15 +64,13 @@ function AddPolicy() {
     } else if (step === 1) {
       setPolicy({ ...policy, [e.target.name]: e.target.value });
     }
-    console.log(policy);
   };
 
   const handleDateInput = (date) => {
-    console.log(date);
-    let effective = new Date(date);
-    var parseDate = date === null ? null : parseISO(effective.toISOString());
-    let expire = addMonths(new Date(date), 6);
-    let expireDate = format(new Date(expire), "MM/dd/yyyy");
+    let parseDate =
+      date === null ? null : moment(new Date(date)).format("MM/DD/YYYY");
+
+    console.log(parseDate);
     if (parseDate === null) {
       setPolicy({
         ...policy,
@@ -83,7 +81,7 @@ function AddPolicy() {
       setPolicy({
         ...policy,
         effectiveDate: parseDate,
-        expirationDate: expireDate,
+        expirationDate: null,
       });
     }
     console.log(policy);
@@ -240,18 +238,19 @@ function AddPolicy() {
                           <div className="col-12 col-md-4 col-lg-4 mt-3">
                             <DatePicker
                               closeOnScroll={true}
-                              selected={policy.effectiveDate}
+                              selected={
+                                policy.effectiveDate === null
+                                  ? null
+                                  : new Date(policy.effectiveDate)
+                              }
                               className="form-control"
                               name="effectiveDate"
                               value={
                                 policy.effectiveDate === null
                                   ? ""
-                                  : format(
-                                      new Date(policy.effectiveDate),
-                                      "MM/dd/yyyy"
-                                    )
+                                  : new Date(policy.effectiveDate)
                               }
-                              onChange={(e) => handleDateInput(e)}
+                              onChange={handleDateInput}
                               isClearable
                             />
                           </div>
@@ -268,10 +267,7 @@ function AddPolicy() {
                               value={
                                 policy.expirationDate === null
                                   ? ""
-                                  : format(
-                                      new Date(policy.expirationDate),
-                                      "MM/dd/yyyy"
-                                    )
+                                  : policy.expirationDate
                               }
                             />
                           </div>
