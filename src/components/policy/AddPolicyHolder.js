@@ -26,7 +26,7 @@ function AddPolicyHolder({ data }) {
 
   const handleDateInput = (date) => {
     let parseDate =
-      date === null ? null : moment(new Date(date)).format("MM/DD/YYYY");
+      date === null ? null : moment(new Date(date)).format("MM-DD-YYYY");
 
     console.log(parseDate);
 

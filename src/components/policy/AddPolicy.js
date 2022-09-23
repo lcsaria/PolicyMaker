@@ -68,8 +68,8 @@ function AddPolicy() {
 
   const handleDateInput = (date) => {
     let parseDate =
-      date === null ? null : moment(new Date(date)).format("MM/DD/YYYY");
-
+      date === null ? null : moment(new Date(date)).format("MM-DD-YYYY");
+    let expire = moment(new Date(date)).add(6, "M").format("MM-DD-YYYY");
     console.log(parseDate);
     if (parseDate === null) {
       setPolicy({
@@ -81,7 +81,7 @@ function AddPolicy() {
       setPolicy({
         ...policy,
         effectiveDate: parseDate,
-        expirationDate: null,
+        expirationDate: expire,
       });
     }
     console.log(policy);
