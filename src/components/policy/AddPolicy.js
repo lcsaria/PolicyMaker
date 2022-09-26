@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useState } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
@@ -10,8 +11,6 @@ import Sidebar from "../template/Sidebar";
 
 import "react-stepper-js/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";
-import AddPolicyHolder from "./AddPolicyHolder";
-import moment from "moment";
 
 function AddPolicy() {
   const [step, setStep] = useState(0);
@@ -26,20 +25,34 @@ function AddPolicy() {
     vehicles: null,
   });
 
+  const [holder, setHolder] = useState({
+    firstName: null,
+    lastName: null,
+    address: null,
+    licenseNumber: null,
+    dateIssued: null,
+  });
+
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
   const nextStep = async () => {
-    setLoading(true);
-    await sleep(3000);
-    setLoading(false);
     if (step < 4) {
+      if (step < 0) {
+        setLoading(true);
+        await sleep(3000);
+        setLoading(false);
+      }
       setStep(step + 1);
+      if (step === 2) {
+        console.log(holder);
+      }
     } else if (step === 4) {
       console.log("Done");
     }
   };
 
+  const getVehicles = () => {};
   const submitPolicy = () => {
     console.log("policy");
     Services.createPolicy(policy)
@@ -63,26 +76,48 @@ function AddPolicy() {
       setAccountNumber(e.target.value);
     } else if (step === 1) {
       setPolicy({ ...policy, [e.target.name]: e.target.value });
+    } else if (step === 2) {
+      setHolder({ ...holder, [e.target.name]: e.target.value });
     }
   };
 
   const handleDateInput = (date) => {
-    let parseDate =
-      date === null ? null : moment(new Date(date)).format("MM-DD-YYYY");
-    let expire = moment(new Date(date)).add(6, "M").format("MM-DD-YYYY");
-    console.log(parseDate);
-    if (parseDate === null) {
-      setPolicy({
-        ...policy,
-        effectiveDate: null,
-        expirationDate: null,
-      });
-    } else {
-      setPolicy({
-        ...policy,
-        effectiveDate: parseDate,
-        expirationDate: expire,
-      });
+    if (step === 1) {
+      let parseDate =
+        date === null ? null : moment(new Date(date)).format("MM-DD-YYYY");
+      let expire = moment(new Date(date)).add(6, "M").format("MM-DD-YYYY");
+      console.log(parseDate);
+      if (parseDate === null) {
+        setPolicy({
+          ...policy,
+          effectiveDate: null,
+          expirationDate: null,
+        });
+      } else {
+        setPolicy({
+          ...policy,
+          effectiveDate: parseDate,
+          expirationDate: expire,
+        });
+      }
+    } else if (step === 2) {
+      let parseDate =
+        date === null ? null : moment(new Date(date)).format("MM-DD-YYYY");
+
+      console.log(parseDate);
+
+      if (parseDate === null) {
+        setHolder({
+          ...holder,
+          dateIssued: null,
+        });
+      } else {
+        setHolder({
+          ...holder,
+          dateIssued: parseDate,
+        });
+      }
+      console.log(holder);
     }
     console.log(policy);
   };
@@ -95,6 +130,8 @@ function AddPolicy() {
     setLoading(true);
     await sleep(2000);
     setLoading(false);
+    nextStep();
+    setExist(true);
     Services.searchAccountNumber(customerAccount)
       .then((res) => {
         console.log(res);
@@ -110,8 +147,6 @@ function AddPolicy() {
             progress: undefined,
           }
         );
-        nextStep();
-        setExist(true);
       })
       .catch((err) => {
         console.log(err);
@@ -223,7 +258,11 @@ function AddPolicy() {
                               type="text"
                               className="form-control"
                               name="policyNumber"
-                              value={policy.policyNumber}
+                              value={
+                                policy.policyNumber === null
+                                  ? ""
+                                  : policy.policyNumber
+                              }
                               onChange={handleInput}
                               maxLength={6}
                             />
@@ -239,16 +278,16 @@ function AddPolicy() {
                             <DatePicker
                               closeOnScroll={true}
                               selected={
-                                policy.effectiveDate === null
-                                  ? null
-                                  : new Date(policy.effectiveDate)
+                                policy.effectiveDate !== null
+                                  ? new Date(policy.effectiveDate)
+                                  : null
                               }
                               className="form-control"
                               name="effectiveDate"
                               value={
                                 policy.effectiveDate === null
                                   ? ""
-                                  : new Date(policy.effectiveDate)
+                                  : policy.effectiveDate
                               }
                               onChange={handleDateInput}
                               isClearable
@@ -257,7 +296,9 @@ function AddPolicy() {
                         </div>
                         <div className="row">
                           <div className="col-12 col-md-4 col-lg-3 mt-3">
-                            <label className="mt-2">Expiration Date</label>
+                            <label className="mt-2">
+                              Expiration Date [MM/DD/YYYY]
+                            </label>
                           </div>
                           <div className="col-12 col-md-4 col-lg-4 mt-3">
                             <input
@@ -282,12 +323,10 @@ function AddPolicy() {
                             <select
                               className="form-control form-select"
                               name="type"
-                              value={policy.type === 0 ? 0 : policy.type}
+                              value={policy.type === null ? 0 : policy.type}
                               onChange={handleInput}
                             >
-                              <option selected value="0">
-                                ----
-                              </option>
+                              <option value="0">----</option>
                               <option value="1">Owner</option>
                               <option value="2">Dependent</option>
                             </select>
@@ -302,7 +341,9 @@ function AddPolicy() {
                               type="text"
                               className="form-control"
                               name="vehicles"
-                              value={policy.vehicles}
+                              value={
+                                policy.vehicles === null ? "" : policy.vehicles
+                              }
                               onChange={handleInput}
                               maxLength={2}
                             />
@@ -311,7 +352,131 @@ function AddPolicy() {
                       </div>
                     </div>
                   )}
-                  {step !== 2 ? null : <AddPolicyHolder data={policy} />}
+                  {step === 2 && (
+                    <div>
+                      <h3>POLICY HOLDER</h3>
+                      <div className="form-group mt-2">
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">First Name</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstName"
+                              value={
+                                holder.firstName === null
+                                  ? ""
+                                  : holder.firstName
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">Last Name</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="lastName"
+                              value={
+                                holder.lastName === null ? "" : holder.lastName
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">Address</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="address"
+                              value={
+                                holder.address === null ? "" : holder.address
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">Driver License #</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="licenseNumber"
+                              value={
+                                holder.licenseNumber === null
+                                  ? ""
+                                  : holder.licenseNumber
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">Date Issued</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <DatePicker
+                              closeOnScroll={true}
+                              selected={
+                                holder.dateIssued === null
+                                  ? null
+                                  : new Date(holder.dateIssued)
+                              }
+                              className="form-control"
+                              name="dateIssued"
+                              value={
+                                holder.dateIssued === null
+                                  ? ""
+                                  : new Date(holder.dateIssued)
+                              }
+                              onChange={handleDateInput}
+                              isClearable
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {step === 3 && (
+                    <div>
+                      <h3>VEHICLES</h3>
+                      {policy.vehicles}
+                      <div className="form-group mt-2">
+                        <div className="row">
+                          <div className="col-12 col-md-4 col-lg-3 mt-3">
+                            <label className="mt-2">First Name</label>
+                          </div>
+                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="firstName"
+                              value={
+                                holder.firstName === null
+                                  ? ""
+                                  : holder.firstName
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div className="d-flex justify-content-around mt-5">
                   {step > 1 ? (
