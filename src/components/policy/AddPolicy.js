@@ -38,7 +38,7 @@ function AddPolicy() {
   }
   const nextStep = async () => {
     if (step < 4) {
-      if (step < 0) {
+      if (step !== 0) {
         setLoading(true);
         await sleep(3000);
         setLoading(false);
