@@ -93,7 +93,6 @@ function AddPolicy() {
       setHolder({ ...holder, [e.target.name]: e.target.value });
       console.log(vehicle);
     } else if (step === 3) {
-      setHolder({ ...vehicle, [e.target.name]: e.target.value });
       console.log(vehicle);
     }
   };
@@ -484,19 +483,23 @@ function AddPolicy() {
                     <div>
                       <h3>VEHICLES</h3>
                       {vehicle.map((item, index) => (
-                        <div className="row">
-                          <div className="col-12 col-md-4 col-lg-3 mt-3">
-                            <label className="mt-2">Make No. {index + 1}</label>
-                          </div>
-                          <div className="col-12 col-md-6 col-lg-4 mt-3">
-                            <input
-                              type="text"
-                              className="form-control"
-                              key={index}
-                              name="make"
-                              value={item.make}
-                              onChange={handleInputFromArray(index)}
-                            ></input>
+                        <div>
+                          <div className="mt-5">VEHICLE NO. {index + 1}</div>
+
+                          <div className="row">
+                            <div className="col-12 col-md-4 col-lg-4 mt-3">
+                              <label className="mt-2">Make</label>
+                            </div>
+                            <div className="col-12 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="make"
+                                value={item.make}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
                           </div>
                         </div>
                       ))}
