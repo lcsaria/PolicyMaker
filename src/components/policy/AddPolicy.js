@@ -33,6 +33,7 @@ function AddPolicy() {
     dateIssued: null,
   });
 
+  const [vehicle, setVehicle] = useState([{ make: "DAO" }]);
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -43,26 +44,38 @@ function AddPolicy() {
         await sleep(3000);
         setLoading(false);
       }
-      setStep(step + 1);
+
+      if (step === 1) {
+        console.log(policy);
+        createVehicles();
+      }
       if (step === 2) {
         console.log(holder);
       }
+      setStep(step + 1);
     } else if (step === 4) {
       console.log("Done");
     }
   };
 
-  const getVehicles = () => {};
-  const submitPolicy = () => {
-    console.log("policy");
-    Services.createPolicy(policy)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const createVehicles = () => {
+    let length = policy.vehicles - 1;
+
+    for (var count = 0; count < length; count++) {
+      setVehicle((vehicle) => [...vehicle, { make: "DAO" }]);
+    }
+    console.log(vehicle);
   };
+  // const submitPolicy = () => {
+  //   console.log("policy");
+  //   Services.createPolicy(policy)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const prevStep = () => {
     if (step > 1) {
@@ -78,7 +91,23 @@ function AddPolicy() {
       setPolicy({ ...policy, [e.target.name]: e.target.value });
     } else if (step === 2) {
       setHolder({ ...holder, [e.target.name]: e.target.value });
+      console.log(vehicle);
+    } else if (step === 3) {
+      setHolder({ ...vehicle, [e.target.name]: e.target.value });
+      console.log(vehicle);
     }
+  };
+
+  const handleInputFromArray = (index) => (e) => {
+    const newArray = vehicle.map((item, i) => {
+      if (index === i) {
+        return { ...item, [e.target.name]: e.target.value };
+      } else {
+        return item;
+      }
+    });
+    setVehicle(newArray);
+    console.log(vehicle);
   };
 
   const handleDateInput = (date) => {
@@ -454,27 +483,23 @@ function AddPolicy() {
                   {step === 3 && (
                     <div>
                       <h3>VEHICLES</h3>
-                      {policy.vehicles}
-                      <div className="form-group mt-2">
+                      {vehicle.map((item, index) => (
                         <div className="row">
                           <div className="col-12 col-md-4 col-lg-3 mt-3">
-                            <label className="mt-2">First Name</label>
+                            <label className="mt-2">Make No. {index + 1}</label>
                           </div>
-                          <div className="col-12 col-md-4 col-lg-4 mt-3">
+                          <div className="col-12 col-md-6 col-lg-4 mt-3">
                             <input
                               type="text"
                               className="form-control"
-                              name="firstName"
-                              value={
-                                holder.firstName === null
-                                  ? ""
-                                  : holder.firstName
-                              }
-                              onChange={handleInput}
-                            />
+                              key={index}
+                              name="make"
+                              value={item.make}
+                              onChange={handleInputFromArray(index)}
+                            ></input>
                           </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
                   )}
                 </div>
