@@ -33,7 +33,18 @@ function AddPolicy() {
     dateIssued: null,
   });
 
-  const [vehicle, setVehicle] = useState([{ make: "DAO" }]);
+  const [vehicle, setVehicle] = useState([
+    {
+      make: null,
+      model: null,
+      year: null,
+      type: null,
+      fuel: null,
+      cost: null,
+      color: null,
+      premium: null,
+    },
+  ]);
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -62,7 +73,19 @@ function AddPolicy() {
     let length = policy.vehicles - 1;
 
     for (var count = 0; count < length; count++) {
-      setVehicle((vehicle) => [...vehicle, { make: "DAO" }]);
+      setVehicle((vehicle) => [
+        ...vehicle,
+        {
+          make: null,
+          model: null,
+          year: null,
+          type: null,
+          fuel: null,
+          cost: null,
+          color: null,
+          premium: null,
+        },
+      ]);
     }
     console.log(vehicle);
   };
@@ -484,19 +507,111 @@ function AddPolicy() {
                       <h3>VEHICLES</h3>
                       {vehicle.map((item, index) => (
                         <div>
-                          <div className="mt-5">VEHICLE NO. {index + 1}</div>
+                          <div className="mt-5">
+                            <b>VEHICLE NO. {index + 1}</b>
+                          </div>
 
                           <div className="row">
-                            <div className="col-12 col-md-4 col-lg-4 mt-3">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
                               <label className="mt-2">Make</label>
                             </div>
-                            <div className="col-12 col-md-8 col-lg-4 mt-3">
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
                               <input
                                 type="text"
                                 className="form-control"
                                 key={index}
                                 name="make"
-                                value={item.make}
+                                value={item.make === null ? "" : item.make}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
+                              <label className="mt-2">Model</label>
+                            </div>
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="model"
+                                value={item.model === null ? "" : item.model}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
+                              <label className="mt-2">Year</label>
+                            </div>
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="year"
+                                value={item.year === null ? "" : item.year}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
+                              <label className="mt-2">Type</label>
+                            </div>
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="type"
+                                value={item.type === null ? "" : item.type}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
+                              <label className="mt-2">Fuel</label>
+                            </div>
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="fuel"
+                                value={item.fuel === null ? "" : item.fuel}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
+                              <label className="mt-2">Cost</label>
+                            </div>
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="cost"
+                                value={item.cost === null ? "" : item.cost}
+                                onChange={handleInputFromArray(index)}
+                              ></input>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-3 col-md-4 col-lg-2 mt-3">
+                              <label className="mt-2">Color</label>
+                            </div>
+                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                name="color"
+                                value={item.color === null ? "" : item.color}
                                 onChange={handleInputFromArray(index)}
                               ></input>
                             </div>
