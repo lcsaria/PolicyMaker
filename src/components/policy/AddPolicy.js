@@ -71,7 +71,6 @@ function AddPolicy() {
 
   const createVehicles = () => {
     let length = policy.vehicles - 1;
-
     for (var count = 0; count < length; count++) {
       setVehicle((vehicle) => [
         ...vehicle,
@@ -513,7 +512,7 @@ function AddPolicy() {
 
                           <div className="row">
                             <div className="col-3 col-md-4 col-lg-2 mt-3">
-                              <label className="mt-2">Make</label>
+                              <label className="mt-2 ml-5">Make</label>
                             </div>
                             <div className="col-9 col-md-8 col-lg-4 mt-3">
                               <input
@@ -618,6 +617,36 @@ function AddPolicy() {
                           </div>
                         </div>
                       ))}
+                    </div>
+                  )}
+                  {step === 4 && (
+                    <div>
+                      <h3 className="mr-4">POLICY INFORMATION</h3>
+                      <div className="container">
+                        <div className="row"></div>
+                        <div className="row mt-3">
+                          <div className="col-3">Policy #</div>
+                          <div className="col">{policy.policyNumber}</div>
+                        </div>
+                        <div className="row mt-3">
+                          <div className="col-3">Effective Date</div>
+                          <div className="col">{policy.effectiveDate}</div>
+                        </div>
+                        <div className="row mt-3">
+                          <div className="col-3">Expiration Date</div>
+                          <div className="col">{policy.expirationDate}</div>
+                        </div>
+                        <div className="row mt-3">
+                          <div className="col-3">Type</div>
+                          <div className="col">
+                            {policy.type === 1 ? "Owner" : "Dependent"}
+                          </div>
+                        </div>
+                        <div className="row mt-3">
+                          <div className="col-3">No. Of Vehicles</div>
+                          <div className="col">{policy.vehicles}</div>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
