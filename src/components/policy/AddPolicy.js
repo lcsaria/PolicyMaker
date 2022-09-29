@@ -396,8 +396,8 @@ function AddPolicy() {
                               onChange={handleInput}
                             >
                               <option value="0">----</option>
-                              <option value="1">Owner</option>
-                              <option value="2">Dependent</option>
+                              <option value="Owner">Owner</option>
+                              <option value="Dependent">Dependent</option>
                             </select>
                           </div>
                         </div>
@@ -510,7 +510,7 @@ function AddPolicy() {
                               value={
                                 holder.dateIssued === null
                                   ? ""
-                                  : new Date(holder.dateIssued)
+                                  : holder.dateIssued
                               }
                               onChange={handleDateInput}
                               isClearable
@@ -640,30 +640,56 @@ function AddPolicy() {
                   )}
                   {step === 4 && (
                     <div>
-                      <h3 className="mr-4">POLICY INFORMATION</h3>
-                      <div className="container">
-                        <div className="row"></div>
-                        <div className="row mt-3">
-                          <div className="col-3">Policy #</div>
-                          <div className="col">{policy.policyNumber}</div>
-                        </div>
-                        <div className="row mt-3">
-                          <div className="col-3">Effective Date</div>
-                          <div className="col">{policy.effectiveDate}</div>
-                        </div>
-                        <div className="row mt-3">
-                          <div className="col-3">Expiration Date</div>
-                          <div className="col">{policy.expirationDate}</div>
-                        </div>
-                        <div className="row mt-3">
-                          <div className="col-3">Type</div>
-                          <div className="col">
-                            {policy.type === 1 ? "Owner" : "Dependent"}
+                      <div>
+                        <h3 className="mr-4">POLICY INFORMATION</h3>
+                        <div className="container">
+                          <div className="row"></div>
+                          <div className="row mt-3">
+                            <div className="col-3">Policy #</div>
+                            <div className="col">{policy.policyNumber}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Effective Date</div>
+                            <div className="col">{policy.effectiveDate}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Expiration Date</div>
+                            <div className="col">{policy.expirationDate}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Type</div>
+                            <div className="col">{policy.type}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">No. Of Vehicles</div>
+                            <div className="col">{policy.vehicles}</div>
                           </div>
                         </div>
-                        <div className="row mt-3">
-                          <div className="col-3">No. Of Vehicles</div>
-                          <div className="col">{policy.vehicles}</div>
+                      </div>
+                      <div>
+                        <h3 className="mr-4 mt-4">POLICY HOLDER</h3>
+                        <div className="container">
+                          <div className="row"></div>
+                          <div className="row mt-3">
+                            <div className="col-3">First Name</div>
+                            <div className="col">{holder.firstName}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Last Name</div>
+                            <div className="col">{holder.lastName}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Address</div>
+                            <div className="col">{holder.address}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Driver License #</div>
+                            <div className="col">{holder.licenseNumber}</div>
+                          </div>
+                          <div className="row mt-3">
+                            <div className="col-3">Date Issued</div>
+                            <div className="col">{holder.dateIssued}</div>
+                          </div>
                         </div>
                       </div>
                     </div>
