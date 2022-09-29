@@ -69,6 +69,31 @@ function AddPolicy() {
     }
   };
 
+  const prevStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+
+      if (step === 3) {
+        resetVehicles();
+      }
+    }
+  };
+
+  const resetVehicles = () => {
+    setVehicle([
+      {
+        make: null,
+        model: null,
+        year: null,
+        type: null,
+        fuel: null,
+        cost: null,
+        color: null,
+        premium: null,
+      },
+    ]);
+    setPolicy({ ...policy, vehicles: 1 });
+  };
   const createVehicles = () => {
     let length = policy.vehicles - 1;
     for (var count = 0; count < length; count++) {
@@ -98,12 +123,6 @@ function AddPolicy() {
   //       console.log(err);
   //     });
   // };
-
-  const prevStep = () => {
-    if (step > 1) {
-      setStep(step - 1);
-    }
-  };
 
   const handleInput = (e) => {
     e.preventDefault();
