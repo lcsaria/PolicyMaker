@@ -1,58 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { Sidebardata } from "./Sidebardata";
 
 function Header() {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  const detectSize = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", detectSize);
-
-    return () => {
-      window.removeEventListener("resize", detectSize);
-    };
-  }, [width]);
-
+  const [isOpen, setOpen] = useState(false);
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Navbar.Brand href="/">PolicyMaker</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto ml-4"></Nav>
-          <Nav>
-            {width < 950 &&
-              Sidebardata.map((val, key) => {
-                return (
-                  <Nav.Link href={val.link} key={key}>
-                    <span className="p-3">{val.icon}</span>
-                    <span>{val.title}</span>
-                  </Nav.Link>
-                );
-              })}
-            <Nav.Link href="#features">
-              <span className="p-3">
-                <i className="fa-solid fa-circle-info"></i>
-              </span>
-              <span>About</span>
-            </Nav.Link>
-            <Nav.Link href="#pricing">
-              <span className="p-3">
-                <i className="fa-solid fa-question"></i>
-              </span>
-              <span>Help</span>
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div className="min-h-full">
+      <nav className="bg-gray-800">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <h3 className="text-gray-300 mt-2">PolicyMaker</h3>
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <div className="mr-10 flex items-baseline space-x-4"></div>
+            </div>
+            <div className="-mr-2 flex md:hidden">
+              <button
+                type="button"
+                className="px-3 inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+                onClick={() => setOpen(!isOpen)}
+              >
+                <span>
+                  {isOpen === false ? (
+                    <i className="fa-solid fa-bars fa-2x" />
+                  ) : (
+                    <i className="fa-solid fa-xmark fa-2x" />
+                  )}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div className="md:hidden" id="mobile-menu">
+            {isOpen === false ? null : (
+              <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+                {Sidebardata.map((val, key) => {
+                  return (
+                    <a
+                      href={val.link}
+                      key={key}
+                      className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                      aria-current="page"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <span className="p-3">{val.icon}</span>
+                      <span>{val.title}</span>
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 }
 

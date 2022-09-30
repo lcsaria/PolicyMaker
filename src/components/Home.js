@@ -1,19 +1,17 @@
 import React from "react";
 import Header from "./template/Header";
-import HeaderV2 from "./template/HeaderV2";
 import Sidebars from "./template/Sidebar";
 
 function Home() {
   return (
     <div>
-      <HeaderV2 />
+      <Header />
       <div id="outer-container">
         <div id="sidebar">
           <Sidebars />
         </div>
         <div id="content">
           <div className="container mt-5">
-            <h1>PolicyMaker</h1>
             <p className="mt-5" style={{ textAlign: "justify" }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ipsum
