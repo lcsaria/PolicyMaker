@@ -37,18 +37,18 @@ function Header() {
 
           <div className="md:hidden" id="mobile-menu">
             {isOpen === false ? null : (
-              <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+              <div className="space-y-1 px-2 pt-2 pb-3 sm:px-4">
                 {Sidebardata.map((val, key) => {
                   return (
                     <a
                       href={val.link}
                       key={key}
-                      className="bg-gray-900 text-white  hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                      className="bg-gray-900 text-white  hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium sm:text-xs"
                       aria-current="page"
                       style={{ textDecoration: "none" }}
                     >
                       <span className="p-3">{val.icon}</span>
-                      <span>{val.title}</span>
+                      <span className="text-xs">{val.title}</span>
                     </a>
                   );
                 })}
