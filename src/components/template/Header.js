@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Sidebardata } from "./Sidebardata";
 
 function Header() {
@@ -44,7 +43,7 @@ function Header() {
                     <a
                       href={val.link}
                       key={key}
-                      className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                      className="bg-gray-900 text-white  hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                       aria-current="page"
                       style={{ textDecoration: "none" }}
                     >
