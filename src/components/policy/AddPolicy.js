@@ -52,7 +52,7 @@ function AddPolicy() {
     if (step < 4) {
       if (step !== 0) {
         setLoading(true);
-        await sleep(3000);
+        await sleep(2000);
         setLoading(false);
       }
 
@@ -392,7 +392,7 @@ function AddPolicy() {
                             <select
                               className="form-control form-select"
                               name="type"
-                              value={policy.type === null ? 0 : policy.type}
+                              value={policy.type === null ? "" : policy.type}
                               onChange={handleInput}
                             >
                               <option value="0">----</option>
@@ -608,7 +608,7 @@ function AddPolicy() {
                             <div className="col-3 col-md-4 col-lg-2 mt-3">
                               <label className="mt-2">Cost</label>
                             </div>
-                            <div className="col-9 col-md-8 col-lg-4 mt-3">
+                            <div className="col-12 col-md-8 col-lg-4 mt-3">
                               <input
                                 type="text"
                                 className="form-control"
@@ -658,7 +658,9 @@ function AddPolicy() {
                           </div>
                           <div className="row mt-3">
                             <div className="col-3">Type</div>
-                            <div className="col">{policy.type}</div>
+                            <div className="col">
+                              {policy.type === 0 ? "" : policy.type}
+                            </div>
                           </div>
                           <div className="row mt-3">
                             <div className="col-3">No. Of Vehicles</div>
