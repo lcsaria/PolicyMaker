@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./template/Header";
-import Header_v2 from "./template/Header_v2";
+import HeaderV2 from "./template/HeaderV2";
 import Sidebars from "./template/Sidebar";
 
 function Home() {
   return (
     <div>
-      <Header_v2 />
+      <HeaderV2 />
       <div id="outer-container">
         <div id="sidebar">
           <Sidebars />
