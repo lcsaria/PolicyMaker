@@ -180,8 +180,8 @@ function AddCustomerAccount() {
           <Sidebar />
         </div>
         <div id="content">
-          <div className="container p-4">
-            <div className="row p-5">
+          <div className="container p-4 mt-8">
+            <div className="row">
               <div className="card col-md-8 offset-md-2">
                 <h3 className="text-center mt-3">
                   <b>Create Customer Account</b>
@@ -198,7 +198,7 @@ function AddCustomerAccount() {
                     />
                     {isLoading === false ? (
                       <button
-                        className="w-full py-2 text-white bg-green-500 rounded-md  focus:bg-green-600 focus:outline-none mt-3"
+                        className="w-full py-2 text-white bg-green-500 rounded-md  hover:bg-green-600 focus:outline-none mt-3"
                         onClick={validateAccountNumber}
                       >
                         <i
@@ -247,14 +247,14 @@ function AddCustomerAccount() {
                       />
                     </div>
                   </div>
-                  <div class="grid-cols-1 sm:grid gap-2 mt-2">
+                  <div class="grid-cols-1 sm:grid gap-2">
                     <div className="form-group">
                       <input
                         placeholder="Address"
                         name="address"
                         value={address}
                         onChange={changeInput}
-                        className="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400"
+                        className="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400 mt-3"
                       />
                     </div>
                   </div>
@@ -279,7 +279,7 @@ function AddCustomerAccount() {
                       </button>
                     ) : (
                       <button
-                        className="w-full   py-2 text-white bg-green-500 focus:bg-green-600 rounded-md focus:outline-none mt-3"
+                        className="w-full   py-2 text-white bg-green-500 hover:bg-green-800 rounded-md focus:outline-none mt-3"
                         onClick={validate}
                       >
                         <i
@@ -290,7 +290,7 @@ function AddCustomerAccount() {
                       </button>
                     )}
                     <button
-                      className="w-full py-2 text-white bg-red-700 rounded-md focus:outline-none mt-3"
+                      className="w-full py-2 text-white bg-red-400 hover:bg-red-700 rounded-md focus:outline-none mt-3"
                       onClick={reset}
                     >
                       <i
