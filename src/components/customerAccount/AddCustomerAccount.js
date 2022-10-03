@@ -191,7 +191,7 @@ function AddCustomerAccount() {
                     <div className="form-group mb-3">
                       <label> Account No: </label>
                       <div className="row">
-                        <div className="col-7">
+                        <div className="w-1/2">
                           <input
                             placeholder="Account Number"
                             name="acctNo"
@@ -201,10 +201,10 @@ function AddCustomerAccount() {
                             className="form-control"
                           />
                         </div>
-                        <div className="col-5">
+                        <div className="w-full">
                           {isLoading === false ? (
                             <button
-                              className="col-12 btn btn-success btn-block"
+                              className="btn btn-success w-1/2"
                               onClick={validateAccountNumber}
                             >
                               <i
@@ -286,7 +286,7 @@ function AddCustomerAccount() {
                         </button>
                       ) : (
                         <button
-                          className="btn btn-success mt-3 col-5"
+                          className="btn btn-success mt-3 col-6"
                           onClick={validate}
                         >
                           <i
@@ -297,7 +297,7 @@ function AddCustomerAccount() {
                         </button>
                       )}
                       <button
-                        className="btn btn-danger mt-3 col-5"
+                        className="btn btn-danger mt-3 col-6"
                         onClick={reset}
                         style={{ marginLeft: "10px" }}
                       >
