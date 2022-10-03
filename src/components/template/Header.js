@@ -16,7 +16,7 @@ function Header() {
             <div className="hidden md:block">
               <div className="mr-10 flex items-baseline space-x-4"></div>
             </div>
-            <div className="-mr-2 flex md:hidden">
+            <div className="-mr-2 flex lg:hidden">
               <button
                 type="button"
                 className="px-3 inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -35,7 +35,7 @@ function Header() {
             </div>
           </div>
 
-          <div className="md:hidden" id="mobile-menu">
+          <div className="lg:hidden" id="mobile-menu">
             {isOpen === false ? null : (
               <div className="space-y-1 px-2 pt-2 pb-3 sm:px-4">
                 {Sidebardata.map((val, key) => {
