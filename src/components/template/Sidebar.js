@@ -10,8 +10,8 @@ const Sidebar = () => {
     <div
       className={
         showNav
-          ? "sidebars d-none d-lg-block"
-          : "sidebars collapsed d-none d-lg-block"
+          ? "sidebars hidden lg:block"
+          : "sidebars collapsed hidden lg:block"
       }
     >
       <ul className="sidebarlist">
