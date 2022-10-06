@@ -305,100 +305,188 @@ function AddPolicy() {
                       ]}
                       currentStep={step}
                     />
-                    {isExist === false
-                      ? null
-                      : step === 1 && (
-                          <div className="container p-5 -mx-10 mb-6">
-                            <div className="w-full px-3">
-                              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Policy #
-                              </label>
-                              <input
-                                className="appearance-none block w-full  border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
-                                type="text"
-                                name="policyNumber"
-                                value={
-                                  policy.policyNumber === null
-                                    ? ""
-                                    : policy.policyNumber
-                                }
-                                onChange={handleInput}
-                                maxLength={6}
-                              />
-                            </div>
-                            <div class="grid-cols-2 sm:grid gap-4">
-                              <div class="w-full px-3">
-                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                  Effective Date
-                                </label>
-                                <DatePicker
-                                  closeOnScroll={true}
-                                  selected={
-                                    policy.effectiveDate !== null
-                                      ? new Date(policy.effectiveDate)
-                                      : null
-                                  }
-                                  className="appearance-none w-full border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
-                                  name="effectiveDate"
-                                  value={
-                                    policy.effectiveDate === null
-                                      ? ""
-                                      : policy.effectiveDate
-                                  }
-                                  onChange={handleDateInput}
-                                  isClearable
-                                />
-                              </div>
-                              <div class="w-full px-3">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                  Expriration Date
-                                </label>
-                                <input
-                                  className="appearance-none block w-full border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
-                                  name="expriationDate"
-                                  disabled
-                                  value={
-                                    policy.expirationDate === null
-                                      ? ""
-                                      : policy.expirationDate
-                                  }
-                                />
-                              </div>
-                            </div>
-                            <div class="w-full px-3">
-                              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                Type of Policy Holder
-                              </label>
-                              <select
-                                className="appearance-none block w-full border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500 form-select"
-                                name="type"
-                                value={policy.type === null ? "" : policy.type}
-                                onChange={handleInput}
-                              >
-                                <option value="0">----</option>
-                                <option value="Owner">Owner</option>
-                                <option value="Dependent">Dependent</option>
-                              </select>
-                            </div>
-                            <div class="w-full px-3">
-                              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                Number of Vehicles
-                              </label>
-                              <input
-                                type="text"
-                                className="appearance-none block w-full border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
-                                name="vehicles"
-                                value={
-                                  policy.vehicles === null
-                                    ? ""
-                                    : policy.vehicles
-                                }
-                                onChange={handleInput}
-                                maxLength={2}
-                              />
-                            </div>
+                    {step === 1 && (
+                      <div className="container p-5 -mx-10 mb-6">
+                        <div class="grid-cols-3 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Policy #
+                            </label>
+                            <input
+                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              type="text"
+                              name="policyNumber"
+                              value={
+                                policy.policyNumber === null
+                                  ? ""
+                                  : policy.policyNumber
+                              }
+                              onChange={handleInput}
+                              maxLength={6}
+                            />
                           </div>
-                        )}
+                          <div class="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Effective Date
+                            </label>
+                            <DatePicker
+                              closeOnScroll={true}
+                              selected={
+                                policy.effectiveDate !== null
+                                  ? new Date(policy.effectiveDate)
+                                  : null
+                              }
+                              className="appearance-none w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              name="effectiveDate"
+                              value={
+                                policy.effectiveDate === null
+                                  ? ""
+                                  : policy.effectiveDate
+                              }
+                              onChange={handleDateInput}
+                              isClearable
+                            />
+                          </div>
+                          <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Expriration Date
+                            </label>
+                            <input
+                              className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              name="expriationDate"
+                              disabled
+                              value={
+                                policy.expirationDate === null
+                                  ? ""
+                                  : policy.expirationDate
+                              }
+                            />
+                          </div>
+                        </div>
+                        <div class="grid-cols-2 lg:grid">
+                          <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Type of Policy Holder
+                            </label>
+                            <select
+                              className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500 form-select"
+                              name="type"
+                              value={policy.type === null ? "" : policy.type}
+                              onChange={handleInput}
+                            >
+                              <option value="0">----</option>
+                              <option value="Owner">Owner</option>
+                              <option value="Dependent">Dependent</option>
+                            </select>
+                          </div>
+                          <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Number of Vehicles
+                            </label>
+                            <input
+                              type="text"
+                              className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              name="vehicles"
+                              value={
+                                policy.vehicles === null ? "" : policy.vehicles
+                              }
+                              onChange={handleInput}
+                              maxLength={2}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {step === 2 && (
+                      <div className="container p-5 -mx-10 mb-6">
+                        <div class="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              First Name
+                            </label>
+                            <input
+                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              type="text"
+                              name="firstName"
+                              value={
+                                holder.firstName === null
+                                  ? ""
+                                  : holder.firstName
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Last Name
+                            </label>
+                            <input
+                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              type="text"
+                              name="lastName"
+                              value={
+                                holder.lastName === null ? "" : holder.lastName
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            Address
+                          </label>
+                          <input
+                            className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                            type="text"
+                            name="address"
+                            value={
+                              holder.address === null ? "" : holder.address
+                            }
+                            onChange={handleInput}
+                          />
+                        </div>
+                        <div class="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Driver License Number
+                            </label>
+                            <input
+                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              type="text"
+                              name="licenseNumber"
+                              value={
+                                holder.licenseNumber === null
+                                  ? ""
+                                  : holder.licenseNumber
+                              }
+                              onChange={handleInput}
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Date Issued
+                            </label>
+                            <DatePicker
+                              closeOnScroll={true}
+                              selected={
+                                holder.dateIssued === null
+                                  ? null
+                                  : new Date(holder.dateIssued)
+                              }
+                              className="appearance-none w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              name="dateIssued"
+                              value={
+                                holder.dateIssued === null
+                                  ? ""
+                                  : holder.dateIssued
+                              }
+                              onChange={handleDateInput}
+                              isClearable
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <div className="d-flex justify-content-around mt-5">
                       {step > 1 ? (
                         <button className="btn btn-warning" onClick={prevStep}>
@@ -455,118 +543,6 @@ export default AddPolicy;
 
 {
   /* 
-                    <div className="container p-5 offset-md-2">
-                      {step > 1 ? null : (
-                        <div>
-                          <h3>POLICY INFORMATION</h3>
-                          <div className="form-group mt-2">
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">Policy #</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="policyNumber"
-                                  value={
-                                    policy.policyNumber === null
-                                      ? ""
-                                      : policy.policyNumber
-                                  }
-                                  onChange={handleInput}
-                                  maxLength={6}
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">
-                                  Effective Date [MM/DD/YYYY]
-                                </label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <DatePicker
-                                  closeOnScroll={true}
-                                  selected={
-                                    policy.effectiveDate !== null
-                                      ? new Date(policy.effectiveDate)
-                                      : null
-                                  }
-                                  className="form-control"
-                                  name="effectiveDate"
-                                  value={
-                                    policy.effectiveDate === null
-                                      ? ""
-                                      : policy.effectiveDate
-                                  }
-                                  onChange={handleDateInput}
-                                  isClearable
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">
-                                  Expiration Date [MM/DD/YYYY]
-                                </label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  className="form-control"
-                                  name="expriationDate"
-                                  disabled
-                                  value={
-                                    policy.expirationDate === null
-                                      ? ""
-                                      : policy.expirationDate
-                                  }
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">
-                                  Type of Policy Holder
-                                </label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <select
-                                  className="form-control form-select"
-                                  name="type"
-                                  value={
-                                    policy.type === null ? "" : policy.type
-                                  }
-                                  onChange={handleInput}
-                                >
-                                  <option value="0">----</option>
-                                  <option value="Owner">Owner</option>
-                                  <option value="Dependent">Dependent</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">No. of Vehicles</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="vehicles"
-                                  value={
-                                    policy.vehicles === null
-                                      ? ""
-                                      : policy.vehicles
-                                  }
-                                  onChange={handleInput}
-                                  maxLength={2}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
                       {step === 2 && (
                         <div>
                           <h3>POLICY HOLDER</h3>
