@@ -40,3 +40,8 @@ a:visited {
 a:hover {
   color: skyblue;
 }
+
+.spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+}
