@@ -487,9 +487,130 @@ function AddPolicy() {
                         </div>
                       </div>
                     )}
+                    {step === 3 && (
+                      <div className="container p-5 -mx-10 mb-6">
+                        <h3>VEHICLES</h3>
+                        {vehicle.map((item, index) => (
+                          <div>
+                            <div className="mt-5">
+                              <b>VEHICLE NO. {index + 1}</b>
+                            </div>
+
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2 ml-5">Make</label>
+                              </div>
+                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="make"
+                                  value={item.make === null ? "" : item.make}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2">Model</label>
+                              </div>
+                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="model"
+                                  value={item.model === null ? "" : item.model}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2">Year</label>
+                              </div>
+                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="year"
+                                  value={item.year === null ? "" : item.year}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2">Type</label>
+                              </div>
+                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="type"
+                                  value={item.type === null ? "" : item.type}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2">Fuel</label>
+                              </div>
+                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="fuel"
+                                  value={item.fuel === null ? "" : item.fuel}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2">Cost</label>
+                              </div>
+                              <div className="col-12 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="cost"
+                                  value={item.cost === null ? "" : item.cost}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="row">
+                              <div className="col-3 col-md-4 col-lg-2 mt-3">
+                                <label className="mt-2">Color</label>
+                              </div>
+                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  key={index}
+                                  name="color"
+                                  value={item.color === null ? "" : item.color}
+                                  onChange={handleInputFromArray(index)}
+                                ></input>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                     <div className="d-flex justify-content-around mt-5">
                       {step > 1 ? (
-                        <button className="btn btn-warning" onClick={prevStep}>
+                        <button
+                          className="w-25 py-2 text-black bg-white-700 focus:bg-gray-500 rounded-md border border-blue-500 focus:outline-none mt-3"
+                          onClick={prevStep}
+                        >
                           <i
                             className="fa-solid fa-arrow-left"
                             style={{ marginRight: "1em" }}
@@ -497,7 +618,10 @@ function AddPolicy() {
                           Back
                         </button>
                       ) : null}
-                      <button className="btn btn-warning" onClick={nextStep}>
+                      <button
+                        className="w-25 py-2 text-white bg-green-700 focus:bg-green-500 rounded-md focus:outline-none mt-3"
+                        onClick={nextStep}
+                      >
                         {step === 4 ? (
                           "Submit"
                         ) : (
