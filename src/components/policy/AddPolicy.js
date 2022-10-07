@@ -73,7 +73,7 @@ function AddPolicy() {
     if (step > 1) {
       setStep(step - 1);
 
-      if (step === 3) {
+      if (step === 2) {
         resetVehicles();
       }
     }
@@ -489,116 +489,119 @@ function AddPolicy() {
                     )}
                     {step === 3 && (
                       <div className="container p-5 -mx-10 mb-6">
-                        <h3>VEHICLES</h3>
                         {vehicle.map((item, index) => (
-                          <div>
-                            <div className="mt-5">
-                              <b>VEHICLE NO. {index + 1}</b>
-                            </div>
+                          <div className="mt-5">
+                            <b>VEHICLE NO. {index + 1}</b>
 
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2 ml-5">Make</label>
-                              </div>
-                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                            <div class="grid-cols-3 lg:grid">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Make
+                                </label>
                                 <input
+                                  className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                                   type="text"
-                                  className="form-control"
                                   key={index}
                                   name="make"
                                   value={item.make === null ? "" : item.make}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                />
                               </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2">Model</label>
-                              </div>
-                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Model
+                                </label>
                                 <input
+                                  className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                                   type="text"
-                                  className="form-control"
                                   key={index}
                                   name="model"
                                   value={item.model === null ? "" : item.model}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                />
                               </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2">Year</label>
-                              </div>
-                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Year
+                                </label>
                                 <input
+                                  className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                                   type="text"
-                                  className="form-control"
                                   key={index}
                                   name="year"
+                                  maxLength={4}
                                   value={item.year === null ? "" : item.year}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                />
                               </div>
                             </div>
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2">Type</label>
-                              </div>
-                              <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  key={index}
+                            <div className="grid-cols-2 lg:grid">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Type
+                                </label>
+                                <select
+                                  className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500 form-select"
                                   name="type"
+                                  key={index}
                                   value={item.type === null ? "" : item.type}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                >
+                                  <option value="0">----</option>
+                                  <option value="4-door sedan">
+                                    4-door sedan
+                                  </option>
+                                  <option value="2-door sports car">
+                                    2-door sports car
+                                  </option>
+                                  <option value="SUV">SUV</option>
+                                  <option value="truck">truck</option>
+                                </select>
                               </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2">Fuel</label>
-                              </div>
-                              <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  key={index}
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Fuel
+                                </label>
+                                <select
+                                  className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500 form-select"
                                   name="fuel"
+                                  key={index}
                                   value={item.fuel === null ? "" : item.fuel}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                >
+                                  <option value="0">----</option>
+                                  <option value="Diesel">Diesel</option>
+                                  <option value="Electric">Electric</option>
+                                  <option value="Petrol">Petrol</option>
+                                </select>
                               </div>
                             </div>
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2">Cost</label>
-                              </div>
-                              <div className="col-12 col-md-8 col-lg-4 mt-3">
+                            <div className="grid-cols-2 lg:grid">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Cost
+                                </label>
                                 <input
+                                  className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                                   type="text"
-                                  className="form-control"
                                   key={index}
                                   name="cost"
                                   value={item.cost === null ? "" : item.cost}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                />
                               </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                <label className="mt-2">Color</label>
-                              </div>
-                              <div className="col-9 col-md-8 col-lg-4 mt-3">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Color
+                                </label>
                                 <input
+                                  className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                                   type="text"
-                                  className="form-control"
                                   key={index}
                                   name="color"
                                   value={item.color === null ? "" : item.color}
                                   onChange={handleInputFromArray(index)}
-                                ></input>
+                                />
                               </div>
                             </div>
                           </div>
@@ -664,338 +667,3 @@ function AddPolicy() {
 }
 
 export default AddPolicy;
-
-{
-  /* 
-                      {step === 2 && (
-                        <div>
-                          <h3>POLICY HOLDER</h3>
-                          <div className="form-group mt-2">
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">First Name</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="firstName"
-                                  value={
-                                    holder.firstName === null
-                                      ? ""
-                                      : holder.firstName
-                                  }
-                                  onChange={handleInput}
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">Last Name</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="lastName"
-                                  value={
-                                    holder.lastName === null
-                                      ? ""
-                                      : holder.lastName
-                                  }
-                                  onChange={handleInput}
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">Address</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="address"
-                                  value={
-                                    holder.address === null
-                                      ? ""
-                                      : holder.address
-                                  }
-                                  onChange={handleInput}
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">Driver License #</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="licenseNumber"
-                                  value={
-                                    holder.licenseNumber === null
-                                      ? ""
-                                      : holder.licenseNumber
-                                  }
-                                  onChange={handleInput}
-                                />
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-12 col-md-4 col-lg-3 mt-3">
-                                <label className="mt-2">Date Issued</label>
-                              </div>
-                              <div className="col-12 col-md-4 col-lg-4 mt-3">
-                                <DatePicker
-                                  closeOnScroll={true}
-                                  selected={
-                                    holder.dateIssued === null
-                                      ? null
-                                      : new Date(holder.dateIssued)
-                                  }
-                                  className="form-control"
-                                  name="dateIssued"
-                                  value={
-                                    holder.dateIssued === null
-                                      ? ""
-                                      : holder.dateIssued
-                                  }
-                                  onChange={handleDateInput}
-                                  isClearable
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {step === 3 && (
-                        <div>
-                          <h3>VEHICLES</h3>
-                          {vehicle.map((item, index) => (
-                            <div>
-                              <div className="mt-5">
-                                <b>VEHICLE NO. {index + 1}</b>
-                              </div>
-
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2 ml-5">Make</label>
-                                </div>
-                                <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="make"
-                                    value={item.make === null ? "" : item.make}
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2">Model</label>
-                                </div>
-                                <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="model"
-                                    value={
-                                      item.model === null ? "" : item.model
-                                    }
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2">Year</label>
-                                </div>
-                                <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="year"
-                                    value={item.year === null ? "" : item.year}
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2">Type</label>
-                                </div>
-                                <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="type"
-                                    value={item.type === null ? "" : item.type}
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2">Fuel</label>
-                                </div>
-                                <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="fuel"
-                                    value={item.fuel === null ? "" : item.fuel}
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2">Cost</label>
-                                </div>
-                                <div className="col-12 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="cost"
-                                    value={item.cost === null ? "" : item.cost}
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-3 col-md-4 col-lg-2 mt-3">
-                                  <label className="mt-2">Color</label>
-                                </div>
-                                <div className="col-9 col-md-8 col-lg-4 mt-3">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    key={index}
-                                    name="color"
-                                    value={
-                                      item.color === null ? "" : item.color
-                                    }
-                                    onChange={handleInputFromArray(index)}
-                                  ></input>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      {step === 4 && (
-                        <div>
-                          <div>
-                            <h3 className="mr-4">POLICY INFORMATION</h3>
-                            <div className="container">
-                              <div className="row"></div>
-                              <div className="row mt-3">
-                                <div className="col-3">Policy #</div>
-                                <div className="col">{policy.policyNumber}</div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Effective Date</div>
-                                <div className="col">
-                                  {policy.effectiveDate}
-                                </div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Expiration Date</div>
-                                <div className="col">
-                                  {policy.expirationDate}
-                                </div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Type</div>
-                                <div className="col">
-                                  {policy.type === 0 ? "" : policy.type}
-                                </div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">No. Of Vehicles</div>
-                                <div className="col">{policy.vehicles}</div>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <h3 className="mr-4 mt-4">POLICY HOLDER</h3>
-                            <div className="container">
-                              <div className="row"></div>
-                              <div className="row mt-3">
-                                <div className="col-3">First Name</div>
-                                <div className="col">{holder.firstName}</div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Last Name</div>
-                                <div className="col">{holder.lastName}</div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Address</div>
-                                <div className="col">{holder.address}</div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Driver License #</div>
-                                <div className="col">
-                                  {holder.licenseNumber}
-                                </div>
-                              </div>
-                              <div className="row mt-3">
-                                <div className="col-3">Date Issued</div>
-                                <div className="col">{holder.dateIssued}</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    <div className="d-flex justify-content-around mt-5">
-                      {step > 1 ? (
-                        <button className="btn btn-warning" onClick={prevStep}>
-                          <i
-                            className="fa-solid fa-arrow-left"
-                            style={{ marginRight: "1em" }}
-                          />
-                          Back
-                        </button>
-                      ) : null}
-                      <button className="btn btn-warning" onClick={nextStep}>
-                        {step === 4 ? (
-                          "Submit"
-                        ) : (
-                          <>
-                            {isLoading === false ? (
-                              <>
-                                <span>Next</span>
-                                <i
-                                  className="fa-solid fa-arrow-right"
-                                  style={{ marginLeft: "1em" }}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <span>Next</span>
-                                <span className="text-white">
-                                  <Spinner
-                                    animation="border"
-                                    variant="light"
-                                    size="sm"
-                                    style={{ marginLeft: "1em" }}
-                                  />
-                                </span>
-                              </>
-                            )}
-                          </>
-                        )}
-                      </button>
-                    </div>
-*/
-}
