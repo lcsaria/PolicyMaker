@@ -608,6 +608,42 @@ function AddPolicy() {
                         ))}
                       </div>
                     )}
+                    {step === 4 && (
+                      <div className="container p-5 -mx-10 mb-6">
+                        <div class="grid-cols-3 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Policy #
+                            </label>
+                            <span>
+                              {policy.policyNumber === null
+                                ? ""
+                                : policy.policyNumber}
+                            </span>
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Effective Date
+                            </label>
+                            <span>
+                              {policy.effectiveDate === null
+                                ? ""
+                                : policy.effectiveDate}
+                            </span>
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Expiration Date
+                            </label>
+                            <span>
+                              {policy.expirationDate === null
+                                ? ""
+                                : policy.expirationDate}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <div className="d-flex justify-content-around mt-5">
                       {step > 1 ? (
                         <button
