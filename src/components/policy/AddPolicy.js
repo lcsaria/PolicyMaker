@@ -279,7 +279,7 @@ function AddPolicy() {
                       </button>
                     ) : (
                       <button
-                        className="btn btn-primary col-12"
+                        className="btn btn-primary col-12  hover:-translate-y-0.5 transform transition hover:bg-indigo-500"
                         onClick={handleSearch}
                       >
                         <i className="fa-solid fa-magnifying-glass" />
@@ -611,7 +611,7 @@ function AddPolicy() {
                     <div className="d-flex justify-content-around mt-5">
                       {step > 1 ? (
                         <button
-                          className="w-25 py-2 text-black bg-white-700 focus:bg-gray-500 rounded-md border border-blue-500 focus:outline-none mt-3"
+                          className="w-25 py-2 text-black bg-white-700 hover:bg-gray-500 rounded-md border  hover:-translate-y-0.5 transform transition focus:outline-none mt-3"
                           onClick={prevStep}
                         >
                           <i
@@ -622,7 +622,7 @@ function AddPolicy() {
                         </button>
                       ) : null}
                       <button
-                        className="w-25 py-2 text-white bg-green-700 focus:bg-green-500 rounded-md focus:outline-none mt-3"
+                        className="w-25 py-2 text-white bg-green-700 hover:bg-green-500 hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
                         onClick={nextStep}
                       >
                         {step === 4 ? (

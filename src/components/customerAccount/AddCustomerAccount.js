@@ -198,7 +198,7 @@ function AddCustomerAccount() {
                     />
                     {isLoading === false ? (
                       <button
-                        className="w-full py-2 text-white bg-green-700 rounded-md  hover:bg-green-500 focus:outline-none mt-3"
+                        className="w-full py-2 text-white bg-green-700 rounded-md  hover:bg-green-500  hover:-translate-y-0.5 transform transition focus:outline-none mt-3"
                         onClick={validateAccountNumber}
                       >
                         <i
@@ -276,7 +276,7 @@ function AddCustomerAccount() {
                       </button>
                     ) : (
                       <button
-                        className="w-full   py-2 text-white bg-green-700 hover:bg-green-500 rounded-md focus:outline-none mt-3"
+                        className="w-full   py-2 text-white bg-green-700 hover:bg-green-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
                         onClick={validate}
                       >
                         <i
@@ -287,7 +287,7 @@ function AddCustomerAccount() {
                       </button>
                     )}
                     <button
-                      className="w-full py-2 text-white bg-red-700 hover:bg-red-500 rounded-md focus:outline-none mt-3"
+                      className="w-full py-2 text-white bg-red-700 hover:bg-red-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
                       onClick={reset}
                     >
                       <i
