@@ -646,7 +646,7 @@ function AddPolicy() {
                               Type of Policy Holder
                             </label>
                             <span>
-                              {policy.type === null && policy === "0"
+                              {policy.type === null || policy === "0"
                                 ? "NONE"
                                 : policy.type}
                             </span>
@@ -718,82 +718,75 @@ function AddPolicy() {
                             </span>
                           </div>
                         </div>
-                        <div>
-                          <>
-                            {vehicle.map((item, index) => (
-                              <div className="mt-5">
-                                <b>VEHICLE NO. {index + 1}</b>
-
-                                <div class="grid-cols-3 lg:grid">
-                                  <div className="w-full px-3">
-                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                      Make
-                                    </label>
-                                    <span>
-                                      {item.make === null ? "N/A" : item.make}
-                                    </span>
-                                  </div>
-                                  <div className="w-full px-3">
-                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                      Model
-                                    </label>
-                                    <span>
-                                      {item.model === null ? "N/A" : item.model}
-                                    </span>
-                                  </div>
-                                  <div className="w-full px-3">
-                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                      Year
-                                    </label>
-                                    <span>
-                                      {item.year === null ? "N/A" : item.year}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="grid-cols-2 lg:grid">
-                                  <div className="w-full px-3">
-                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                      Type
-                                    </label>
-                                    <span>
-                                      {item.type === null ? "N/A" : item.type}
-                                    </span>
-                                  </div>
-                                  <div className="w-full px-3">
-                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                      Fuel
-                                    </label>
-                                    <span>
-                                      {item.fuel === null ? "N/A" : item.fuel}
-                                    </span>
-                                  </div>
-                                  <div className="grid-cols-2 lg:grid">
-                                    <div className="w-full px-3">
-                                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                        Cost
-                                      </label>
-                                      {item.cost === null
-                                        ? "N/A"
-                                        : "$" + item.cost}
-                                    </div>
-                                    <div className="w-full px-3">
-                                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                                        Color
-                                      </label>
-                                      {item.color === null ? "N/A" : item.color}
-                                    </div>
-                                  </div>
-                                </div>
+                        {vehicle.map((item, index) => (
+                          <div className="mt-5">
+                            <b>VEHICLE NO. {index + 1}</b>
+                            <div class="grid-cols-3 lg:grid">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Make
+                                </label>
+                                <span>
+                                  {item.make === null ? "N/A" : item.make}
+                                </span>
                               </div>
-                            ))}
-                          </>
-                        </div>
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Model
+                                </label>
+                                <span>
+                                  {item.model === null ? "N/A" : item.model}
+                                </span>
+                              </div>
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Year
+                                </label>
+                                <span>
+                                  {item.year === null ? "N/A" : item.year}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="grid-cols-2 lg:grid">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Type
+                                </label>
+                                <span>
+                                  {item.type === null ? "N/A" : item.type}
+                                </span>
+                              </div>
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Fuel
+                                </label>
+                                <span>
+                                  {item.fuel === null ? "N/A" : item.fuel}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="grid-cols-2 lg:grid">
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Cost
+                                </label>
+                                {item.cost === null ? "N/A" : "$" + item.cost}
+                              </div>
+                              <div className="w-full px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                  Color
+                                </label>
+                                {item.color === null ? "N/A" : item.color}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     )}
                     <div className="d-flex justify-content-around mt-5">
                       {step > 1 ? (
                         <button
-                          className="w-25 py-2 text-black bg-white-700 hover:bg-gray-500 rounded-md border  hover:-translate-y-0.5 transform transition focus:outline-none mt-3"
+                          className="w-25 py-2 text-black bg-white-700 hover:bg-gray-500 rounded-md border  hover:-translate-y-1 transform transition focus:outline-none mt-3"
                           onClick={prevStep}
                         >
                           <i
@@ -804,7 +797,7 @@ function AddPolicy() {
                         </button>
                       ) : null}
                       <button
-                        className="w-25 py-2 text-white bg-green-700 hover:bg-green-500 hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
+                        className="w-25 py-2 text-white bg-green-700 hover:bg-green-500 hover:-translate-y-1 transform transition rounded-md focus:outline-none mt-3"
                         onClick={nextStep}
                       >
                         {step === 4 ? (
