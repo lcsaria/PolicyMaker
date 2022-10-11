@@ -610,24 +610,22 @@ function AddPolicy() {
                     )}
                     {step === 4 && (
                       <div className="container p-5 -mx-10 mb-6">
-                        <div class="grid-cols-3 lg:grid">
-                          <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Policy #
-                            </label>
-                            <span>
-                              {policy.policyNumber === null
-                                ? ""
-                                : policy.policyNumber}
-                            </span>
-                          </div>
+                        <div className="text-lg uppercase">
+                          <h2>
+                            Policy #
+                            {policy.policyNumber === null
+                              ? "XXXXXX"
+                              : policy.policyNumber}
+                          </h2>
+                        </div>
+                        <div class="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Effective Date
                             </label>
                             <span>
                               {policy.effectiveDate === null
-                                ? ""
+                                ? "N/A"
                                 : policy.effectiveDate}
                             </span>
                           </div>
@@ -637,8 +635,31 @@ function AddPolicy() {
                             </label>
                             <span>
                               {policy.expirationDate === null
-                                ? ""
+                                ? "N/A"
                                 : policy.expirationDate}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Type of Policy Holder
+                            </label>
+                            <span>
+                              {policy.type === null && policy === "0"
+                                ? "NONE"
+                                : policy.type}
+                            </span>
+                          </div>
+
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Number of Vehicles
+                            </label>
+                            <span>
+                              {policy.vehicles === null
+                                ? "XX"
+                                : policy.vehicles}
                             </span>
                           </div>
                         </div>
