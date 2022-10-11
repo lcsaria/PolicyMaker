@@ -663,6 +663,131 @@ function AddPolicy() {
                             </span>
                           </div>
                         </div>
+                        <div className="text-lg uppercase mt-5">
+                          <h4>Policy Holder</h4>
+                        </div>
+                        <div class="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              First Name
+                            </label>
+                            <span>
+                              {holder.firstName === null
+                                ? "N/A"
+                                : holder.firstName}
+                            </span>
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Last Name
+                            </label>
+                            <span>
+                              {holder.lastName === null
+                                ? "N/A"
+                                : holder.lastName}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            Address
+                          </label>
+                          <span>
+                            {holder.address === null ? "N/A" : holder.address}
+                          </span>
+                        </div>
+                        <div class="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Driver License #
+                            </label>
+                            <span>
+                              {holder.licenseNumber === null
+                                ? "N/A"
+                                : holder.licenseNumber}
+                            </span>
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Date Issued
+                            </label>
+                            <span>
+                              {holder.dateIssued === null
+                                ? "N/A"
+                                : holder.dateIssued}
+                            </span>
+                          </div>
+                        </div>
+                        <div>
+                          <>
+                            {vehicle.map((item, index) => (
+                              <div className="mt-5">
+                                <b>VEHICLE NO. {index + 1}</b>
+
+                                <div class="grid-cols-3 lg:grid">
+                                  <div className="w-full px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                      Make
+                                    </label>
+                                    <span>
+                                      {item.make === null ? "N/A" : item.make}
+                                    </span>
+                                  </div>
+                                  <div className="w-full px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                      Model
+                                    </label>
+                                    <span>
+                                      {item.model === null ? "N/A" : item.model}
+                                    </span>
+                                  </div>
+                                  <div className="w-full px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                      Year
+                                    </label>
+                                    <span>
+                                      {item.year === null ? "N/A" : item.year}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="grid-cols-2 lg:grid">
+                                  <div className="w-full px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                      Type
+                                    </label>
+                                    <span>
+                                      {item.type === null ? "N/A" : item.type}
+                                    </span>
+                                  </div>
+                                  <div className="w-full px-3">
+                                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                      Fuel
+                                    </label>
+                                    <span>
+                                      {item.fuel === null ? "N/A" : item.fuel}
+                                    </span>
+                                  </div>
+                                  <div className="grid-cols-2 lg:grid">
+                                    <div className="w-full px-3">
+                                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                        Cost
+                                      </label>
+                                      {item.cost === null
+                                        ? "N/A"
+                                        : "$" + item.cost}
+                                    </div>
+                                    <div className="w-full px-3">
+                                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                                        Color
+                                      </label>
+                                      {item.color === null ? "N/A" : item.color}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </>
+                        </div>
                       </div>
                     )}
                     <div className="d-flex justify-content-around mt-5">
