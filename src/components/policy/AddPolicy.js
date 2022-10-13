@@ -618,7 +618,7 @@ function AddPolicy() {
                               : policy.policyNumber}
                           </h2>
                         </div>
-                        <div class="grid-cols-2 lg:grid">
+                        <div class="grid-cols-2 lg:grid sm:mt-0 mt-5">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Effective Date
