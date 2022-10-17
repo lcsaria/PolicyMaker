@@ -35,6 +35,7 @@ function AddPolicy() {
 
   const [vehicle, setVehicle] = useState([
     {
+      policyNumber: null,
       make: null,
       model: null,
       year: null,
@@ -63,6 +64,9 @@ function AddPolicy() {
       if (step === 2) {
         console.log(holder);
       }
+      if (step === 3) {
+        console.log(vehicle);
+      }
       setStep(step + 1);
     } else if (step === 4) {
       console.log("Done");
@@ -82,6 +86,7 @@ function AddPolicy() {
   const resetVehicles = () => {
     setVehicle([
       {
+        policyNumber: policy.policyNumber,
         make: null,
         model: null,
         year: null,
@@ -100,6 +105,7 @@ function AddPolicy() {
       setVehicle((vehicle) => [
         ...vehicle,
         {
+          policyNumber: policy.policyNumber,
           make: null,
           model: null,
           year: null,
@@ -114,7 +120,6 @@ function AddPolicy() {
     console.log(vehicle);
   };
   // const submitPolicy = () => {
-  //   console.log("policy");
   //   Services.createPolicy(policy)
   //     .then((res) => {
   //       console.log(res.data);
@@ -122,6 +127,32 @@ function AddPolicy() {
   //     .catch((err) => {
   //       console.log(err);
   //     });
+
+  //   const value = { ...holder, policyNumber: policy.policyNumber };
+  //   Services.createPolicyHolder(value)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //
+  //   Services.createVehicles(vehicle)
+  //        .then((res) => {
+  //           console.log(res.data);
+  //           toast.success("Vehicle successfully added", {
+  //              position: "top-right",
+  //             autoClose: 5000,
+  //             hideProgressBar: false,
+  //             closeOnClick: true,
+  //             pauseOnHover: true,
+  //             draggable: true,
+  //             progress: undefined,
+  //           });
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //         });
   // };
 
   const handleInput = (e) => {
@@ -307,7 +338,7 @@ function AddPolicy() {
                     />
                     {step === 1 && (
                       <div className="container p-5 -mx-10 mb-6">
-                        <div class="grid-cols-3 lg:grid">
+                        <div className="grid-cols-3 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Policy #
@@ -325,7 +356,7 @@ function AddPolicy() {
                               maxLength={6}
                             />
                           </div>
-                          <div class="w-full px-3">
+                          <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Effective Date
                             </label>
@@ -347,8 +378,8 @@ function AddPolicy() {
                               isClearable
                             />
                           </div>
-                          <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Expriration Date
                             </label>
                             <input
@@ -363,9 +394,9 @@ function AddPolicy() {
                             />
                           </div>
                         </div>
-                        <div class="grid-cols-2 lg:grid">
-                          <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                        <div className="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Type of Policy Holder
                             </label>
                             <select
@@ -379,8 +410,8 @@ function AddPolicy() {
                               <option value="Dependent">Dependent</option>
                             </select>
                           </div>
-                          <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Number of Vehicles
                             </label>
                             <input
@@ -399,7 +430,7 @@ function AddPolicy() {
                     )}
                     {step === 2 && (
                       <div className="container p-5 -mx-10 mb-6">
-                        <div class="grid-cols-2 lg:grid">
+                        <div className="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               First Name
@@ -445,7 +476,7 @@ function AddPolicy() {
                             onChange={handleInput}
                           />
                         </div>
-                        <div class="grid-cols-2 lg:grid">
+                        <div className="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Driver License Number
@@ -493,7 +524,7 @@ function AddPolicy() {
                           <div className="mt-5">
                             <b>VEHICLE NO. {index + 1}</b>
 
-                            <div class="grid-cols-3 lg:grid">
+                            <div className="grid-cols-3 lg:grid">
                               <div className="w-full px-3">
                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                                   Make
@@ -618,7 +649,7 @@ function AddPolicy() {
                               : policy.policyNumber}
                           </h2>
                         </div>
-                        <div class="grid-cols-2 lg:grid sm:mt-0 mt-5">
+                        <div className="grid-cols-2 lg:grid sm:mt-0 mt-5">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Effective Date
@@ -640,7 +671,7 @@ function AddPolicy() {
                             </span>
                           </div>
                         </div>
-                        <div class="grid-cols-2 lg:grid">
+                        <div className="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Type of Policy Holder
@@ -666,7 +697,7 @@ function AddPolicy() {
                         <div className="text-lg uppercase mt-5">
                           <h4>Policy Holder</h4>
                         </div>
-                        <div class="grid-cols-2 lg:grid">
+                        <div className="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               First Name
@@ -696,7 +727,7 @@ function AddPolicy() {
                             {holder.address === null ? "N/A" : holder.address}
                           </span>
                         </div>
-                        <div class="grid-cols-2 lg:grid">
+                        <div className="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Driver License #
@@ -719,9 +750,9 @@ function AddPolicy() {
                           </div>
                         </div>
                         {vehicle.map((item, index) => (
-                          <div className="mt-5">
+                          <div className="mt-5" key={index}>
                             <b>VEHICLE NO. {index + 1}</b>
-                            <div class="grid-cols-3 lg:grid">
+                            <div className="grid-cols-3 lg:grid">
                               <div className="w-full px-3">
                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                                   Make

@@ -10,6 +10,8 @@ const ACCOUNT_NUMBER_BASE_URL =
   "http://localhost:8080/api/v1/customer_account/searchID";
 
 const ADD_POLICY_BASE_URL = "http://localhost:8080/api/v1/policy";
+const ADD_POLICY_HOLDER_BASE_URL = "http://localhost:8080/api/v1/policyHolder";
+const ADD_VEHICLES_BASE_URL = "http://localhost:8080/api/v1/vehicles";
 
 class Services {
   async createCustomerAccount(customerAccount) {
@@ -26,6 +28,14 @@ class Services {
 
   async createPolicy(policy) {
     return await axios.post(ADD_POLICY_BASE_URL, policy);
+  }
+
+  async createPolicyHolder(policyHolder) {
+    return await axios.post(ADD_POLICY_HOLDER_BASE_URL, policyHolder);
+  }
+
+  async createVehicles(vehicles) {
+    return await axios.post(ADD_VEHICLES_BASE_URL, vehicles);
   }
 }
 
