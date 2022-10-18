@@ -224,7 +224,7 @@ function AddCustomerAccount() {
                       </button>
                     )}
                   </div>
-                  <div class="grid-cols-2 sm:grid sm:mt-0 mt-5 gap-4">
+                  <div class="grid-cols-2 sm:grid sm:mt-0 gap-4">
                     <div className="form-group">
                       <input
                         placeholder="First Name"

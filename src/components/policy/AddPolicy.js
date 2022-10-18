@@ -25,6 +25,8 @@ function AddPolicy() {
     vehicles: null,
   });
 
+  const [error, setError] = useState({ isValid: false });
+
   const [holder, setHolder] = useState({
     firstName: null,
     lastName: null,
@@ -46,6 +48,7 @@ function AddPolicy() {
       premium: null,
     },
   ]);
+
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -59,17 +62,22 @@ function AddPolicy() {
 
       if (step === 1) {
         console.log(policy);
+
         createVehicles();
       }
       if (step === 2) {
         console.log(holder);
+        console.log(vehicle);
       }
       if (step === 3) {
         console.log(vehicle);
       }
       setStep(step + 1);
     } else if (step === 4) {
-      console.log("Done");
+      setLoading(true);
+      await sleep(2000);
+      setLoading(false);
+      confirm();
     }
   };
 
@@ -83,6 +91,34 @@ function AddPolicy() {
     }
   };
 
+  const validatePolicy = () => {
+    var pNo = document.getElementById("policyNumber");
+
+    if (pNo.value.length === 0) {
+      setError({ ...error, policyNumber: "" });
+    } else if (pNo.value.length < 6) {
+      setError({ ...error, policyNumber: "Required", isValid: false });
+    } else {
+      setError({ ...error, policyNumber: "", isValid: true });
+    }
+    console.log(error);
+  };
+
+  const confirm = () => {
+    if (error.isValid === false) {
+      toast.error("No policy Number", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      submitPolicy();
+    }
+  };
   const resetVehicles = () => {
     setVehicle([
       {
@@ -99,6 +135,7 @@ function AddPolicy() {
     ]);
     setPolicy({ ...policy, vehicles: 1 });
   };
+
   const createVehicles = () => {
     let length = policy.vehicles - 1;
     for (var count = 0; count < length; count++) {
@@ -119,41 +156,62 @@ function AddPolicy() {
     }
     console.log(vehicle);
   };
-  // const submitPolicy = () => {
-  //   Services.createPolicy(policy)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
 
-  //   const value = { ...holder, policyNumber: policy.policyNumber };
-  //   Services.createPolicyHolder(value)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //
-  //   Services.createVehicles(vehicle)
-  //        .then((res) => {
-  //           console.log(res.data);
-  //           toast.success("Vehicle successfully added", {
-  //              position: "top-right",
-  //             autoClose: 5000,
-  //             hideProgressBar: false,
-  //             closeOnClick: true,
-  //             pauseOnHover: true,
-  //             draggable: true,
-  //             progress: undefined,
-  //           });
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  // };
+  const submitPolicy = async () => {
+    Services.createPolicy(policy)
+      .then((res) => {
+        toast.success("Policy #" + policy.policyNumber + " added", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    await sleep(2000);
+    const value = { ...holder, policyNumber: policy.policyNumber };
+    Services.createPolicyHolder(value)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Policy holder added", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    await sleep(2000);
+    Services.createVehicles(vehicle)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Vehicle successfully added", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    await sleep(1000);
+    setStep(0);
+    setExist(false);
+  };
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -161,6 +219,7 @@ function AddPolicy() {
       setAccountNumber(e.target.value);
     } else if (step === 1) {
       setPolicy({ ...policy, [e.target.name]: e.target.value });
+      validatePolicy();
     } else if (step === 2) {
       setHolder({ ...holder, [e.target.name]: e.target.value });
       console.log(vehicle);
@@ -280,49 +339,55 @@ function AddPolicy() {
                 </h3>
                 {step === 0 && (
                   <div className="grid-cols-2 sm:grid gap-4">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Account Number"
-                      name="accountNumber"
-                      value={accountNumber}
-                      maxLength={4}
-                      onChange={handleInput}
-                      aria-label="Account Number"
-                    />
-                    {isLoading === true ? (
-                      <button
-                        className="btn btn-primary col-12"
-                        onClick={handleSearch}
-                        disabled
-                      >
-                        <span className="text-white">
-                          <Spinner
-                            animation="border"
-                            variant="light"
-                            size="sm"
-                            style={{
-                              marginRight: "10px",
-                            }}
-                          />
-                        </span>
-                        <span className="p-2">Search</span>
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-primary col-12  hover:-translate-y-0.5 transform transition hover:bg-indigo-500"
-                        onClick={handleSearch}
-                      >
-                        <i className="fa-solid fa-magnifying-glass" />
-                        <span className="p-2">Search</span>
-                      </button>
-                    )}
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                        Account Number
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="accountNumber"
+                        value={accountNumber}
+                        maxLength={4}
+                        onChange={handleInput}
+                        aria-label="Account Number"
+                      />
+                    </div>
+                    <div className="w-full px-3 mt-10">
+                      {isLoading === true ? (
+                        <button
+                          className="btn btn-primary col-12"
+                          onClick={handleSearch}
+                          disabled
+                        >
+                          <span className="text-white">
+                            <Spinner
+                              animation="border"
+                              variant="light"
+                              size="sm"
+                              style={{
+                                marginRight: "10px",
+                              }}
+                            />
+                          </span>
+                          <span className="p-2">Search</span>
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-primary col-12  hover:-translate-y-0.5 transform transition hover:bg-indigo-500"
+                          onClick={handleSearch}
+                        >
+                          <i className="fa-solid fa-magnifying-glass" />
+                          <span className="p-2">Search</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 )}
                 {isExist === false ? null : (
                   <div>
                     <h3 className="text-center mt-3 mb-3">
-                      Account # {accountNumber}{" "}
+                      Account # {accountNumber}
                     </h3>
                     <Stepper
                       color="#23b561"
@@ -341,12 +406,13 @@ function AddPolicy() {
                         <div className="grid-cols-3 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Policy #
+                              Policy # *
                             </label>
                             <input
-                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500 peer"
                               type="text"
                               name="policyNumber"
+                              id="policyNumber"
                               value={
                                 policy.policyNumber === null
                                   ? ""
@@ -355,10 +421,15 @@ function AddPolicy() {
                               onChange={handleInput}
                               maxLength={6}
                             />
+                            {error.policyNumber === "" ? null : (
+                              <span className="block tracking-wide text-red-700 text-xs font-bold mb-2 mt-1">
+                                {error.policyNumber}
+                              </span>
+                            )}
                           </div>
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Effective Date
+                              Effective Date *
                             </label>
                             <DatePicker
                               closeOnScroll={true}
@@ -380,7 +451,7 @@ function AddPolicy() {
                           </div>
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Expriration Date
+                              Expriration Date *
                             </label>
                             <input
                               className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
@@ -397,7 +468,7 @@ function AddPolicy() {
                         <div className="grid-cols-2 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Type of Policy Holder
+                              Type of Policy Holder *
                             </label>
                             <select
                               className="appearance-none block w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500 form-select"
@@ -412,7 +483,7 @@ function AddPolicy() {
                           </div>
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Number of Vehicles
+                              Number of Vehicles *
                             </label>
                             <input
                               type="text"
@@ -832,7 +903,25 @@ function AddPolicy() {
                         onClick={nextStep}
                       >
                         {step === 4 ? (
-                          "Submit"
+                          <>
+                            {isLoading === false ? (
+                              <>
+                                <span>Submit</span>
+                              </>
+                            ) : (
+                              <>
+                                <span className="text-white">
+                                  <Spinner
+                                    animation="border"
+                                    variant="light"
+                                    size="sm"
+                                    style={{ marginRight: "1em" }}
+                                  />
+                                </span>
+                                <span>Submit</span>
+                              </>
+                            )}
+                          </>
                         ) : (
                           <>
                             {isLoading === false ? (
