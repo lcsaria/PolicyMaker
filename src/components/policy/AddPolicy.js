@@ -405,11 +405,11 @@ function AddPolicy() {
                       <div className="container p-5 -mx-10 mb-6">
                         <div className="grid-cols-3 lg:grid">
                           <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-3">
                               Policy # *
                             </label>
                             <input
-                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500 peer"
+                              className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                               type="text"
                               name="policyNumber"
                               id="policyNumber"

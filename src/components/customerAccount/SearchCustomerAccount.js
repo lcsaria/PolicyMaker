@@ -72,32 +72,36 @@ function SearchCustomerAccount() {
                   <b>Search Customer Account</b>
                 </h3>
                 <div className="card-body">
-                  <div className="grid-cols-3 sm:grid gap-4">
-                    <div className="">
+                  <div className="grid-cols-3 lg:grid">
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                        First Name
+                      </label>
                       <input
                         type="text"
-                        className="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400"
-                        placeholder="First name"
+                        className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                         name="firstName"
                         value={firstName}
                         onChange={changeInput}
                         aria-label="First name"
                       />
                     </div>
-                    <div className="">
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                        Last Name
+                      </label>
                       <input
                         type="text"
-                        className="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400"
-                        placeholder="Last name"
-                        aria-label="Last name"
+                        className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                         name="lastName"
                         value={lastName}
                         onChange={changeInput}
                       />
                     </div>
-                    <div className="">
+                    <div className="w-full px-3">
+                      <div className="mt-10"></div>
                       <button
-                        className="w-full py-2 text-white bg-green-700 rounded-md   hover:-translate-y-1 transform transition hover:bg-green-500 focus:outline-none"
+                        className="appearance-none block w-full py-3 text-white bg-green-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-green-500 focus:outline-none"
                         onClick={handleSubmit}
                       >
                         <i
