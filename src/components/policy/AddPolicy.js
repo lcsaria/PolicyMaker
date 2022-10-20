@@ -671,7 +671,7 @@ function AddPolicy() {
                                   value={item.fuel === null ? "" : item.fuel}
                                   onChange={handleInputFromArray(index)}
                                 >
-                                  <option value="0">----</option>
+                                  <option value="empty">----</option>
                                   <option value="Diesel">Diesel</option>
                                   <option value="Electric">Electric</option>
                                   <option value="Petrol">Petrol</option>
