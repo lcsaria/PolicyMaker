@@ -8,6 +8,7 @@ import Login from "./components/login/Login";
 import SearchCustomerAccount from "./components/customerAccount/SearchCustomerAccount";
 import AddCustomerAccount from "./components/customerAccount/AddCustomerAccount";
 import AddPolicy from "./components/policy/AddPolicy";
+import SearchPolicy from "./components/policy/SearchPolicy";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           element={<SearchCustomerAccount />}
         />
         <Route path="/policy/create" element={<AddPolicy />} />
+        <Route path="/policy/search" element={<SearchPolicy />} />
       </Routes>
     </div>
   );
