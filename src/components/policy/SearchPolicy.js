@@ -16,7 +16,7 @@ function SearchPolicy() {
             <div className="row mt-32">
               <div className="col-md-8 offset-md-2">
                 <h3 className="text-center mt-3 my-3 uppercase">
-                  <b>Search Customer Account</b>
+                  <b>Search Policy</b>
                 </h3>
                 <div className="card-body"></div>
               </div>
