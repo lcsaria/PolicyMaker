@@ -48,7 +48,7 @@ function SearchPolicy() {
                       {/*RESET */}
                       <div className="mt-10"></div>
                       <button
-                        className="appearance-none block w-full py-2 text-white bg-gray-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-500 focus:outline-none"
+                        className="appearance-none block w-full py-2 text-black bg-white-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-300 focus:outline-none"
                         onClick={handleSubmit}
                       >
                         <i
@@ -60,11 +60,7 @@ function SearchPolicy() {
                     </div>
                   </div>
                 </div>
-                <div className="card-body mt-10 border-1">
-                  <h3 className="text-center mt-3 my-3 uppercase">
-                    <b>Policy # 000000</b>
-                  </h3>
-                </div>
+                <div className="card-body mt-10 border-1"></div>
               </div>
             </div>
           </div>

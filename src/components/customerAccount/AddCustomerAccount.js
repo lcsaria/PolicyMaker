@@ -183,13 +183,13 @@ function AddCustomerAccount() {
           <div className="container p-4 mt-8">
             <div className="row mt-32">
               <div className="col-md-8 offset-md-2">
-                <h3 className="text-center mt-3 my-3 uppercase">
+                <h3 className="text-center uppercase">
                   <b>Create Customer Account</b>
                 </h3>
-                <div className="card-body">
+                <div className="card-body mt-5">
                   <div class="grid-cols-2 lg:grid">
                     <div className="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Account Number
                       </label>
                       <input
@@ -200,11 +200,10 @@ function AddCustomerAccount() {
                         class="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400 "
                       />
                     </div>
-                    <div className="w-full px-3">
-                      <div className="mt-10"></div>
+                    <div className="w-full px-3 mt-4 my-2">
                       {isLoading === false ? (
                         <button
-                          className="w-full py-2 text-white bg-green-700 rounded-md  hover:bg-green-500  hover:-translate-y-1 transform transition focus:outline-none"
+                          className="w-full py-2 text-white bg-gray-700 hover:bg-gray-500 rounded-md hover:-translate-y-1 transform transition focus:outline-none"
                           onClick={validateAccountNumber}
                         >
                           <i
@@ -215,7 +214,7 @@ function AddCustomerAccount() {
                         </button>
                       ) : (
                         <button
-                          className="w-full py-2 text-white bg-green-300 rounded-md focus:outline-none"
+                          className="w-full py-2 text-white bg-gray-500 rounded-md focus:outline-none"
                           onClick={validateAccountNumber}
                           disabled={true}
                         >
@@ -231,9 +230,9 @@ function AddCustomerAccount() {
                       )}
                     </div>
                   </div>
-                  <div class="grid-cols-2 lg:grid mt-3">
+                  <div class="grid-cols-2 lg:grid ">
                     <div className="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold  mt-2 my-2">
                         First Name
                       </label>
                       <input
@@ -244,7 +243,7 @@ function AddCustomerAccount() {
                       />
                     </div>
                     <div className="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mt-2 my-2">
                         Last Name
                       </label>
                       <input
@@ -255,18 +254,20 @@ function AddCustomerAccount() {
                       />
                     </div>
                   </div>
-                  <div className="w-full px-3 mt-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ">
-                      Address
-                    </label>
-                    <input
-                      name="address"
-                      value={address}
-                      onChange={changeInput}
-                      className="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400"
-                    />
+                  <div className="grid-cols-1 lg:grid">
+                    <div className="w-full px-3 ">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold  mt-2 my-2">
+                        Address
+                      </label>
+                      <input
+                        name="address"
+                        value={address}
+                        onChange={changeInput}
+                        className="w-full px-4 py-2 border-2 rounded-md border-gray-400 outline-none  focus:border-gray-400"
+                      />
+                    </div>
                   </div>
-                  <div class="grid-cols-2 lg:grid">
+                  <div class="grid-cols-2 lg:grid mt-5">
                     <div className="w-full px-3">
                       {save ? (
                         <button
@@ -288,7 +289,7 @@ function AddCustomerAccount() {
                         </button>
                       ) : (
                         <button
-                          className="w-full   py-2 text-white bg-green-700 hover:bg-green-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
+                          className="w-full   py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
                           onClick={validate}
                         >
                           <i
@@ -301,7 +302,7 @@ function AddCustomerAccount() {
                     </div>
                     <div className="w-full px-3">
                       <button
-                        className="w-full py-2 text-white bg-red-700 hover:bg-red-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
+                        className="w-full py-2 text-black bg-white-700 hover:bg-gray-300 hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3 border-2 border-gray-400"
                         onClick={reset}
                       >
                         <i

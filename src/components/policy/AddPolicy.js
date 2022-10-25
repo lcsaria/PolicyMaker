@@ -356,7 +356,7 @@ function AddPolicy() {
                     <div className="w-full px-3 mt-10">
                       {isLoading === true ? (
                         <button
-                          className="btn btn-primary col-12"
+                          className="w-full py-2 text-white bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
                           onClick={handleSearch}
                           disabled
                         >
@@ -374,7 +374,7 @@ function AddPolicy() {
                         </button>
                       ) : (
                         <button
-                          className="btn btn-primary col-12  hover:-translate-y-0.5 transform transition hover:bg-indigo-500"
+                          className="w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
                           onClick={handleSearch}
                         >
                           <i className="fa-solid fa-magnifying-glass" />
@@ -390,7 +390,7 @@ function AddPolicy() {
                       Account # {accountNumber}
                     </h3>
                     <Stepper
-                      color="#23b561"
+                      color="#212121"
                       fontSize="16px"
                       fontColor="#000000"
                       steps={[
@@ -899,7 +899,7 @@ function AddPolicy() {
                         </button>
                       ) : null}
                       <button
-                        className="w-25 py-2 text-white bg-green-700 hover:bg-green-500 hover:-translate-y-1 transform transition rounded-md focus:outline-none mt-3"
+                        className="w-25 py-2 text-white bg-gray-700 hover:bg-gray-500 hover:-translate-y-1 transform transition rounded-md focus:outline-none mt-3"
                         onClick={nextStep}
                       >
                         {step === 4 ? (
