@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { ToastContainer } from "react-bootstrap";
 import Sidebar from "../template/Sidebar";
 import Header from "../template/Header";
 
 function SearchPolicy() {
+  const [policyNumber, setPolicyNumber] = useState("");
+
+  const changeInput = (e) => {
+    let value = e.target.value;
+
+    if (e.target.name === "policyNumber") {
+      let result = value.replace(/\D/g, "");
+      setPolicyNumber(result);
+    }
+  };
+
+  const reset = (e) => {
+    e.preventDefault();
+    setPolicyNumber("");
+  };
+
   const handleSubmit = () => {};
+
   return (
     <div>
       <Header />
@@ -28,7 +45,10 @@ function SearchPolicy() {
                       <input
                         type="text"
                         className="appearance-none block w-full  border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
-                        name="firstName"
+                        name="policyNumber"
+                        value={policyNumber}
+                        onChange={changeInput}
+                        maxLength={6}
                       />
                     </div>
                     <div className="w-full px-3">
@@ -45,11 +65,10 @@ function SearchPolicy() {
                       </button>
                     </div>
                     <div className="w-full px-3">
-                      {/*RESET */}
                       <div className="mt-10"></div>
                       <button
                         className="appearance-none block w-full py-2 text-black bg-white-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-300 focus:outline-none"
-                        onClick={handleSubmit}
+                        onClick={reset}
                       >
                         <i
                           className="fa-solid fa-rotate-right"
