@@ -289,7 +289,7 @@ function AddCustomerAccount() {
                         </button>
                       ) : (
                         <button
-                          className="w-full   py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
+                          className="w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none mt-3"
                           onClick={validate}
                         >
                           <i

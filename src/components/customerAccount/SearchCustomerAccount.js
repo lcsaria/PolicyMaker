@@ -79,7 +79,7 @@ function SearchCustomerAccount() {
                       </label>
                       <input
                         type="text"
-                        className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                        className="appearance-none block w-full  border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
                         name="firstName"
                         value={firstName}
                         onChange={changeInput}
@@ -92,7 +92,7 @@ function SearchCustomerAccount() {
                       </label>
                       <input
                         type="text"
-                        className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                        className="appearance-none block w-full  border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
                         name="lastName"
                         value={lastName}
                         onChange={changeInput}
@@ -101,7 +101,7 @@ function SearchCustomerAccount() {
                     <div className="w-full px-3">
                       <div className="mt-10"></div>
                       <button
-                        className="appearance-none block w-full py-3 text-white bg-green-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-green-500 focus:outline-none"
+                        className="w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
                         onClick={handleSubmit}
                       >
                         <i

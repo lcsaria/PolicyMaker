@@ -34,7 +34,7 @@ function SearchPolicy() {
                     <div className="w-full px-3">
                       <div className="mt-10"></div>
                       <button
-                        className="appearance-none block w-full py-2 text-white bg-green-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-green-500 focus:outline-none"
+                        className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
                         onClick={handleSubmit}
                       >
                         <i

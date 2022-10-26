@@ -14,7 +14,7 @@ const Sidebar = () => {
           : "sidebars collapsed hidden lg:block"
       }
     >
-      <ul className="sidebarlist">
+      <ul className="sidebarlist transform transition">
         <div className="meow row">
           {showNav ? (
             <>
