@@ -2,9 +2,14 @@ import React, { useState } from "react";
 import { ToastContainer } from "react-bootstrap";
 import Sidebar from "../template/Sidebar";
 import Header from "../template/Header";
+import Services from "../api/Services";
 
 function SearchPolicy() {
   const [policyNumber, setPolicyNumber] = useState("");
+
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const changeInput = (e) => {
     let value = e.target.value;
@@ -20,7 +25,17 @@ function SearchPolicy() {
     setPolicyNumber("");
   };
 
-  const handleSubmit = () => {};
+  const handleSearch = (e) => {
+    e.preventDefault();
+    let policy = { policyNumber: policyNumber };
+    Services.searchPolicy(policy)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -55,7 +70,7 @@ function SearchPolicy() {
                       <div className="mt-10"></div>
                       <button
                         className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
-                        onClick={handleSubmit}
+                        onClick={handleSearch}
                       >
                         <i
                           className="fa-solid fa-magnifying-glass"

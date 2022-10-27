@@ -2,16 +2,14 @@ import axios from "axios";
 
 const CUSTOMER_ACCOUNT_BASE_URL =
   "http://localhost:8080/api/v1/customer_account";
-
 const SEARCH_CUSTOMER_ACCOUNT_BASE_URL =
   "http://localhost:8080/api/v1/customer_account/search";
-
 const ACCOUNT_NUMBER_BASE_URL =
   "http://localhost:8080/api/v1/customer_account/searchID";
-
 const ADD_POLICY_BASE_URL = "http://localhost:8080/api/v1/policy";
 const ADD_POLICY_HOLDER_BASE_URL = "http://localhost:8080/api/v1/policyHolder";
 const ADD_VEHICLES_BASE_URL = "http://localhost:8080/api/v1/vehicles";
+const SEARCH_POLICY_BASE_URL = "http://localhost:8080/api/v1/policy/search";
 
 class Services {
   async createCustomerAccount(customerAccount) {
@@ -36,6 +34,10 @@ class Services {
 
   async createVehicles(vehicles) {
     return await axios.post(ADD_VEHICLES_BASE_URL, vehicles);
+  }
+
+  async searchPolicy(policy) {
+    return await axios.post(SEARCH_POLICY_BASE_URL, policy);
   }
 }
 
