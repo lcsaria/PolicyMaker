@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { ToastContainer } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+
 import Sidebar from "../template/Sidebar";
 import Header from "../template/Header";
 import Services from "../api/Services";
 
 function SearchPolicy() {
   const [policyNumber, setPolicyNumber] = useState("");
-
+  const [result, setResult] = useState([
+    {
+      policyNumber: null,
+      effectiveDate: null,
+      expirationDate: null,
+      type: 0,
+      vehicles: null,
+    },
+  ]);
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -30,7 +39,22 @@ function SearchPolicy() {
     let policy = { policyNumber: policyNumber };
     Services.searchPolicy(policy)
       .then((res) => {
-        console.log(res.data);
+        let dao = JSON.stringify(res.data);
+        if (dao) {
+          setResult(JSON.parse(dao));
+          console.log();
+          toast.success("Customer account found.", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        } else {
+          setResult(null);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -94,7 +118,20 @@ function SearchPolicy() {
                     </div>
                   </div>
                 </div>
-                <div className="card-body mt-10 border-1"></div>
+                <div className="card-body mt-10 border-1">
+                  {result.policyNumber !== null
+                    ? result.map((item, index) => (
+                        <div className="grid-cols-3 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Policy Number
+                            </label>
+                            <span key={index}>{item.policyNumber}</span>
+                          </div>
+                        </div>
+                      ))
+                    : null}
+                </div>
               </div>
             </div>
           </div>
