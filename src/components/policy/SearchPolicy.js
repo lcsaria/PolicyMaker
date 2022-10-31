@@ -7,6 +7,7 @@ import Services from "../api/Services";
 
 function SearchPolicy() {
   const [policyNumber, setPolicyNumber] = useState("");
+  const [isExist, setExist] = useState(false);
   const [result, setResult] = useState([
     {
       policyNumber: null,
@@ -32,6 +33,7 @@ function SearchPolicy() {
   const reset = (e) => {
     e.preventDefault();
     setPolicyNumber("");
+    setExist(false);
   };
 
   const handleSearch = (e) => {
@@ -42,6 +44,7 @@ function SearchPolicy() {
         let dao = JSON.stringify(res.data);
         if (dao) {
           setResult(JSON.parse(dao));
+          setExist(true);
           console.log();
           toast.success("Customer account found.", {
             position: "top-right",
@@ -54,10 +57,12 @@ function SearchPolicy() {
           });
         } else {
           setResult(null);
+          setExist(false);
         }
       })
       .catch((err) => {
         console.log(err);
+        setExist(false);
       });
   };
 
@@ -119,8 +124,9 @@ function SearchPolicy() {
                   </div>
                 </div>
                 <div className="card-body mt-10 border-1">
-                  {result.policyNumber !== null
-                    ? result.map((item, index) => (
+                  {isExist === false
+                    ? null
+                    : result.map((item, index) => (
                         <div className="grid-cols-3 lg:grid">
                           <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
@@ -129,8 +135,7 @@ function SearchPolicy() {
                             <span key={index}>{item.policyNumber}</span>
                           </div>
                         </div>
-                      ))
-                    : null}
+                      ))}
                 </div>
               </div>
             </div>

@@ -9,10 +9,10 @@ function Login() {
 
   if (authMode === "signin") {
     return (
-      <div className="Auth-form-container">
-        <form className="Auth-form">
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
+      <div className="container">
+        <form className="card mt-5">
+          <div className="card-body">
+            <h3 className="text-center">POLICY ADMINISTRATION SYSTEM</h3>
             <div className="form-group mt-3">
               <label>Email address</label>
               <input
@@ -30,18 +30,9 @@ function Login() {
               />
             </div>
             <div className="d-grid gap-2 mt-3">
-              <button type="submit" className="btn btn-primary">
+              <a href="/dashboard" className="btn btn-primary">
                 Submit
-              </button>
-              <a href="/" className="btn btn-secondary mb-3">
-                Back to Home
               </a>
-            </div>
-            <div className="text-center">
-              Not registered yet?{" "}
-              <span className="link-primary" onClick={changeAuthMode}>
-                Sign Up
-              </span>
             </div>
           </div>
         </form>
