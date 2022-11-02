@@ -10,11 +10,8 @@ function SearchPolicy() {
   const [isExist, setExist] = useState(false);
   const [result, setResult] = useState([
     {
-      policyNumber: null,
-      effectiveDate: null,
-      expirationDate: null,
-      type: 0,
-      vehicles: null,
+      policy: null,
+      holder: null,
     },
   ]);
   async function sleep(ms) {
@@ -124,7 +121,7 @@ function SearchPolicy() {
                   </div>
                 </div>
                 <div className="card-body mt-10 border-1">
-                  {isExist === false
+                  {/* {isExist === false
                     ? null
                     : result.map((item, index) => (
                         <div className="grid-cols-3 lg:grid">
@@ -132,10 +129,10 @@ function SearchPolicy() {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                               Policy Number
                             </label>
-                            <span key={index}>{item.policyNumber}</span>
+                            <span key={index}>{item.policy.policyNumber}</span>
                           </div>
                         </div>
-                      ))}
+                      ))} */}
                 </div>
               </div>
             </div>
