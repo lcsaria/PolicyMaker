@@ -9,6 +9,7 @@ import SearchCustomerAccount from "./components/customerAccount/SearchCustomerAc
 import AddCustomerAccount from "./components/customerAccount/AddCustomerAccount";
 import AddPolicy from "./components/policy/AddPolicy";
 import SearchPolicy from "./components/policy/SearchPolicy";
+import PageNotFound from "./components/template/PageNotFound";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         />
         <Route path="/policy/create" element={<AddPolicy />} />
         <Route path="/policy/search" element={<SearchPolicy />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

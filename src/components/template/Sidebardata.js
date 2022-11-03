@@ -2,7 +2,7 @@ export const Sidebardata = [
   {
     title: "Home",
     icon: <i className="fas fa-home  " />,
-    link: "/",
+    link: "/dashboard",
   },
   {
     title: "Create Customer Account",
@@ -38,5 +38,10 @@ export const Sidebardata = [
     title: "Search Claim",
     icon: <i className="fas fa-magnifying-glass-dollar  " />,
     link: "/claim/search",
+  },
+  {
+    title: "Logout",
+    icon: <i className="fas fa-right-from-bracket  " />,
+    link: "/",
   },
 ];

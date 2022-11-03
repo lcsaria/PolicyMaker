@@ -12,11 +12,9 @@ function SearchPolicy() {
     {
       policy: null,
       holder: null,
+      vehicle: null,
     },
   ]);
-  async function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
 
   const changeInput = (e) => {
     let value = e.target.value;
@@ -42,7 +40,7 @@ function SearchPolicy() {
         if (dao) {
           setResult(JSON.parse(dao));
           setExist(true);
-          console.log();
+          console.log(result);
           toast.success("Customer account found.", {
             position: "top-right",
             autoClose: 5000,
@@ -73,13 +71,13 @@ function SearchPolicy() {
         <div id="content">
           <div className="container p-4 mt-8">
             <div className="row mt-32">
-              <div className="col-md-8 offset-md-2">
+              <div className="col-md-10 offset-md-1">
                 <h3 className="text-center mt-3 my-3 uppercase">
                   <b>Search Policy</b>
                 </h3>
                 <div className="card-body">
-                  <div className="grid-cols-3 lg:grid">
-                    <div className="w-full px-3">
+                  <div className="grid-cols-3 gap-0 lg:grid">
+                    <div className="w-full px-3 mb-2 ">
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                         Policy Number
                       </label>
@@ -92,8 +90,7 @@ function SearchPolicy() {
                         maxLength={6}
                       />
                     </div>
-                    <div className="w-full px-3">
-                      <div className="mt-10"></div>
+                    <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3  mb-2">
                       <button
                         className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
                         onClick={handleSearch}
@@ -105,8 +102,7 @@ function SearchPolicy() {
                         <span className="p-2">Search</span>
                       </button>
                     </div>
-                    <div className="w-full px-3">
-                      <div className="mt-10"></div>
+                    <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3 ">
                       <button
                         className="appearance-none block w-full py-2 text-black bg-white-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-300 focus:outline-none"
                         onClick={reset}
@@ -120,20 +116,80 @@ function SearchPolicy() {
                     </div>
                   </div>
                 </div>
-                <div className="card-body mt-10 border-1">
-                  {/* {isExist === false
-                    ? null
-                    : result.map((item, index) => (
-                        <div className="grid-cols-3 lg:grid">
-                          <div className="w-full px-3">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                              Policy Number
-                            </label>
-                            <span key={index}>{item.policy.policyNumber}</span>
+
+                {isExist === false ? null : (
+                  <div className="mt-10">
+                    <div className="grid-cols-1 lg:grid">
+                      <div className="w-full px-3">
+                        <h1>Policy # {result.policy.policyNumber}</h1>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mt-6">
+                      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className=" min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8">
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full">
+                              <thead className="border-b text-bold">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Effective Date
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Expiration Date
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Type
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    No. of Vehicles
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr className="border-b">
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.policy.effectiveDate === null
+                                      ? "N/A"
+                                      : result.policy.effectiveDate}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.policy.expirationDate === null
+                                      ? "N/A"
+                                      : result.policy.expirationDate}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.policy.type === null ||
+                                    result.policy.type === "0"
+                                      ? "NONE"
+                                      : result.policy.type}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.policy.vehicles === null
+                                      ? "XX"
+                                      : result.policy.vehicles}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
                           </div>
                         </div>
-                      ))} */}
-                </div>
+                      </div>
+                    </div>
+                    {/*for mobile screen */}
+                  </div>
+                )}
               </div>
             </div>
           </div>
