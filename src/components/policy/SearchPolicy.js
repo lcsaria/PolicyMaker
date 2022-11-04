@@ -187,7 +187,28 @@ function SearchPolicy() {
                         </div>
                       </div>
                     </div>
-                    {/*for mobile screen */}
+                    <div className="flex justify-center lg:hidden">
+                      <div className="block p-6 rounded-lg shadow-lg bg-white w-full">
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">EFFECTIVE DATE</div>
+                          <div>
+                            <span className="">
+                              {result.policy.effectiveDate === null
+                                ? "N/A"
+                                : result.policy.effectiveDate}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid  grid-cols-2 mb-2">
+                          <div className="font-bold">EXPIRATION DATE</div>
+                          <span className="">
+                            {result.policy.expirationDate === null
+                              ? "N/A"
+                              : result.policy.expirationDate}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
