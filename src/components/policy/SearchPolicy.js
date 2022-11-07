@@ -7,6 +7,7 @@ import Services from "../api/Services";
 
 function SearchPolicy() {
   const [policyNumber, setPolicyNumber] = useState("");
+  const [loading, setLoading] = useState(false);
   const [isExist, setExist] = useState(false);
   const [result, setResult] = useState([
     {
@@ -15,6 +16,10 @@ function SearchPolicy() {
       vehicle: null,
     },
   ]);
+
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const changeInput = (e) => {
     let value = e.target.value;
@@ -35,9 +40,12 @@ function SearchPolicy() {
     e.preventDefault();
     let policy = { policyNumber: policyNumber };
     Services.searchPolicy(policy)
-      .then((res) => {
+      .then(async (res) => {
         let dao = JSON.stringify(res.data);
         if (dao) {
+          setLoading(true);
+          await sleep(3000);
+          setLoading(false);
           setResult(JSON.parse(dao));
           setExist(true);
           console.log(result);
@@ -58,6 +66,15 @@ function SearchPolicy() {
       .catch((err) => {
         console.log(err);
         setExist(false);
+        toast.error("Something is wrong.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
@@ -121,7 +138,7 @@ function SearchPolicy() {
                   <div className="mt-10">
                     <div className="grid-cols-1 lg:grid">
                       <div className="w-full px-3">
-                        <h1>Policy # {result.policy.policyNumber}</h1>
+                        <h3>Policy # {result.policy.policyNumber}</h3>
                       </div>
                     </div>
                     <div className="flex flex-col mt-6">
@@ -155,6 +172,10 @@ function SearchPolicy() {
                                   >
                                     No. of Vehicles
                                   </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  ></th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -187,8 +208,190 @@ function SearchPolicy() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex justify-center lg:hidden">
-                      <div className="block p-6 rounded-lg shadow-lg bg-white w-full">
+
+                    <div className="flex flex-col mt-6">
+                      <h4 className="min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8 font-bold">
+                        POLICY HOLDER
+                      </h4>
+                      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className=" min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8">
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full">
+                              <thead className="border-b text-bold">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    First Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Last Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Address
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Driver License Number
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Date Issued
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr className="border-b">
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.holder.firstName === null
+                                      ? "N/A"
+                                      : result.holder.firstName}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.holder.lastName === null
+                                      ? "N/A"
+                                      : result.holder.lastName}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.holder.address === null
+                                      ? "N/A"
+                                      : result.holder.address}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.holder.licenseNumber === null
+                                      ? "N/A"
+                                      : result.holder.licenseNumber}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result.holder.dateIssued === null
+                                      ? "N/A"
+                                      : result.holder.dateIssued}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col mt-6">
+                      <h4 className="min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8 font-bold">
+                        POLICY HOLDER
+                      </h4>
+                      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className=" min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8">
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full">
+                              <thead className="border-b text-bold">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Make
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Model
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Year
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Type
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Fuel
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Cost
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Color
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {result.vehicle === null
+                                  ? null
+                                  : result.vehicle.map((item, index) => (
+                                      <tr className="border-b" key={index}>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          {item.make === null
+                                            ? "N/A"
+                                            : item.make}
+                                        </td>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          {item.model === null
+                                            ? "N/A"
+                                            : item.model}
+                                        </td>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          {item.year === null
+                                            ? "N/A"
+                                            : item.year}
+                                        </td>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          {item.type === null
+                                            ? "N/A"
+                                            : item.type}
+                                        </td>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          {item.fuel === null
+                                            ? "N/A"
+                                            : item.fuel}
+                                        </td>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          $
+                                          {item.cost === null
+                                            ? "N/A"
+                                            : item.cost}
+                                        </td>
+                                        <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                          {item.color === null
+                                            ? "N/A"
+                                            : item.color}
+                                        </td>
+                                      </tr>
+                                    ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center lg:hidden mb-3">
+                      <div className="block p-6 rounded-lg shadow-lg bg-white w-full ">
                         <div className="sm:grid grid-cols-2 mb-2">
                           <div className="font-bold">EFFECTIVE DATE</div>
                           <div>
@@ -201,11 +404,91 @@ function SearchPolicy() {
                         </div>
                         <div className="sm:grid  grid-cols-2 mb-2">
                           <div className="font-bold">EXPIRATION DATE</div>
-                          <span className="">
-                            {result.policy.expirationDate === null
-                              ? "N/A"
-                              : result.policy.expirationDate}
-                          </span>
+                          <div>
+                            <span className="">
+                              {result.policy.expirationDate === null
+                                ? "N/A"
+                                : result.policy.expirationDate}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">TYPE</div>
+                          <div>
+                            <span className="">
+                              {result.policy.type === null ||
+                              result.policy.type === "0"
+                                ? "N/A"
+                                : result.policy.type}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">NO. OF VEHICLES</div>
+                          <div>
+                            <span className="">
+                              {result.policy.vehicles === null
+                                ? "N/A"
+                                : result.policy.vehicles}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex lg:hidden mb-3">
+                      <h4 className="font-bold">POLICY HOLDER</h4>
+                    </div>
+                    <div className="flex justify-center lg:hidden">
+                      <div className="block p-6 rounded-lg shadow-lg bg-white w-full ">
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">FIRST NAME</div>
+                          <div>
+                            <span className="">
+                              {result.holder.firstName === null
+                                ? "N/A"
+                                : result.holder.firstName}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid  grid-cols-2 mb-2">
+                          <div className="font-bold">LAST NAME</div>
+                          <div>
+                            <span className="">
+                              {result.holder.lastName === null
+                                ? "N/A"
+                                : result.holder.lastName}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">ADDRESS</div>
+                          <div>
+                            <span className="">
+                              {result.holder.address === null
+                                ? "N/A"
+                                : result.holder.address}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">LICENSE NUMBER</div>
+                          <div>
+                            <span className="">
+                              {result.holder.licenseNumber === null
+                                ? "N/A"
+                                : result.holder.licenseNumber}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">DATE ISSUED</div>
+                          <div>
+                            <span className="">
+                              {result.holder.dateIssued === null
+                                ? "N/A"
+                                : result.holder.dateIssued}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
