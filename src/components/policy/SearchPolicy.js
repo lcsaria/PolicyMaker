@@ -108,16 +108,29 @@ function SearchPolicy() {
                       />
                     </div>
                     <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3  mb-2">
-                      <button
-                        className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
-                        onClick={handleSearch}
-                      >
-                        <i
-                          className="fa-solid fa-magnifying-glass"
-                          style={{ marginRight: "10px" }}
-                        />
-                        <span className="p-2">Search</span>
-                      </button>
+                      {loading === false ? (
+                        <button
+                          className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          onClick={handleSearch}
+                        >
+                          <i
+                            className="fa-solid fa-magnifying-glass"
+                            style={{ marginRight: "10px" }}
+                          />
+                          <span className="p-2">Search</span>
+                        </button>
+                      ) : (
+                        <button
+                          className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          onClick={handleSearch}
+                        >
+                          <i
+                            className="fa-solid fa-magnifying-glass"
+                            style={{ marginRight: "10px" }}
+                          />
+                          <span className="p-2">Search</span>
+                        </button>
+                      )}
                     </div>
                     <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3 ">
                       <button
@@ -136,12 +149,14 @@ function SearchPolicy() {
 
                 {isExist === false ? null : (
                   <div className="mt-10">
-                    <div className="grid-cols-1 lg:grid">
+                    <div className="grid-cols-1 lg:grid mb-6">
                       <div className="w-full px-3">
-                        <h3>Policy # {result.policy.policyNumber}</h3>
+                        <h3 className="font-bold text-center">
+                          Policy # {result.policy.policyNumber}
+                        </h3>
                       </div>
                     </div>
-                    <div className="flex flex-col mt-6">
+                    <div className="flex flex-col sm:mb-0 mb-6">
                       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className=" min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8">
                           <div className="overflow-x-auto">
@@ -209,7 +224,7 @@ function SearchPolicy() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col mt-6">
+                    <div className="flex flex-col sm:mb-0 mb-6">
                       <h4 className="min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8 font-bold">
                         POLICY HOLDER
                       </h4>
@@ -286,9 +301,9 @@ function SearchPolicy() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col mt-6">
+                    <div className="flex flex-col sm:mb-0 mb-6">
                       <h4 className="min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8 font-bold">
-                        POLICY HOLDER
+                        {result.vehicle.length === 1 ? "VEHICLE" : "VEHICLES"}
                       </h4>
                       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className=" min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8">
@@ -390,7 +405,7 @@ function SearchPolicy() {
                       </div>
                     </div>
 
-                    <div className="flex justify-center lg:hidden mb-3">
+                    <div className="flex justify-center lg:hidden mb-6">
                       <div className="block p-6 rounded-lg shadow-lg bg-white w-full ">
                         <div className="sm:grid grid-cols-2 mb-2">
                           <div className="font-bold">EFFECTIVE DATE</div>
@@ -435,10 +450,11 @@ function SearchPolicy() {
                         </div>
                       </div>
                     </div>
+
                     <div className="flex lg:hidden mb-3">
                       <h4 className="font-bold">POLICY HOLDER</h4>
                     </div>
-                    <div className="flex justify-center lg:hidden">
+                    <div className="flex justify-center lg:hidden mb-6">
                       <div className="block p-6 rounded-lg shadow-lg bg-white w-full ">
                         <div className="sm:grid grid-cols-2 mb-2">
                           <div className="font-bold">FIRST NAME</div>
@@ -492,6 +508,31 @@ function SearchPolicy() {
                         </div>
                       </div>
                     </div>
+
+                    <div className="flex lg:hidden mb-3">
+                      <h4 className="font-bold">
+                        {result.vehicle.length === 1 ? "VEHICLE" : "VEHICLES"}
+                      </h4>
+                    </div>
+                    {result.vehicle === null
+                      ? null
+                      : result.vehicle.map((item, index) => (
+                          <div
+                            className="flex justify-center lg:hidden mb-6"
+                            key={index}
+                          >
+                            <div className="block p-6 rounded-lg shadow-lg bg-white w-full ">
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">MAKE</div>
+                                <div>
+                                  <span className="">
+                                    {item.make === null ? "N/A" : item.make}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                   </div>
                 )}
               </div>

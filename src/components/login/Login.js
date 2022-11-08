@@ -1,119 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import bgimage from "../../assets/img/bg-image.jpg";
 function Login() {
-  let [authMode, setAuthMode] = useState("signin");
   let navigate = useNavigate();
-  const changeAuthMode = () => {
-    setAuthMode(authMode === "signin" ? "signup" : "signin");
-  };
 
-  const handleSumbit = () => {
+  const handleSubmit = () => {
     navigate("/dashboard");
   };
-  if (authMode === "signin") {
-    return (
-      <div class="h-screen flex">
-        <div
-          class="hidden lg:flex w-full lg:w-1/2 bg-gray-500
-          justify-around items-center"
-        >
-          <div
-            class=" 
-                  bg-black 
-                  opacity-20 
-                  inset-0 
-                  z-0"
-          ></div>
-          <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
-            <h1 class="text-white font-bold text-4xl font-sans">PolicyMaker</h1>
-            <p class="text-white mt-1">The simplest app to use</p>
-          </div>
-        </div>
-        <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
-          <div class="w-full px-8 md:px-32 lg:px-24">
-            <form class="bg-white rounded-md shadow-2xl p-5">
-              <h1 class="text-gray-800 font-bold text-2xl mb-1">PolicyMaker</h1>
-              <p class="text-sm font-normal text-gray-600 mb-8">Welcome Back</p>
-              <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
-                <span>
-                  <i className="fas fa-envelope text-gray-400" />
-                </span>
-                <input
-                  id="email"
-                  class=" pl-2 w-full outline-none border-none"
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div class="flex items-center border-2 mb-12 py-2 px-3 rounded-2xl ">
-                <span>
-                  <i className="fas fa-lock text-gray-400" />
-                </span>
-                <input
-                  class="pl-2 w-full outline-none border-none"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Password"
-                />
-              </div>
-              <button
-                onClick={handleSumbit}
-                class="block w-full bg-gray-700 mt-5 py-2 rounded-2xl hover:bg-gray-500 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2"
-              >
-                Login
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className="Auth-form-container">
-      <form className="Auth-form">
-        <div className="Auth-form-content">
-          <h3 className="Auth-form-title">Sign Up</h3>
-          <div className="form-group mt-3">
-            <label>Full Name</label>
-            <input
-              type="email"
-              className="form-control mt-1"
-              placeholder="e.g Jane Doe"
-            />
+    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
+      <div className="hidden sm:block bg-gray-100">
+        <img className="max-w-full h-full " src={bgimage} alt="Hello" />
+      </div>
+
+      <div className="bg-gray-100 flex flex-col justify-center">
+        <form className="max-w-[400px] w-full mx-auto bg-white p-4">
+          <h2 className="text-4xl font-bold text-center py-6">PolicyMaker</h2>
+          <div className="flex flex-col py-2">
+            <label>Username</label>
+
+            <input className="border p-2" type="text" />
           </div>
-          <div className="form-group mt-3">
-            <label>Email address</label>
-            <input
-              type="email"
-              className="form-control mt-1"
-              placeholder="Email Address"
-            />
-          </div>
-          <div className="form-group mt-3">
+          <div className="flex flex-col py-2">
             <label>Password</label>
-            <input
-              type="password"
-              className="form-control mt-1"
-              placeholder="Password"
-            />
+            <input className="border p-2" type="password" />
           </div>
-          <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary mb-3">
-              Submit
-            </button>
-          </div>
-          <div className="text-center">
-            Already registered?{" "}
-            <span className="link-primary" onClick={changeAuthMode}>
-              Sign In
-            </span>
-          </div>
-        </div>
-      </form>
+          <button
+            onClick={handleSubmit}
+            className="border w-full my-5 py-2 bg-gray-600 hover:bg-gray-500 text-white"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
