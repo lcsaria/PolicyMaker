@@ -65,7 +65,7 @@ function SearchCustomerAccount() {
           <Sidebar />
         </div>
         <div id="content">
-          <div className="container p-4 mt-8">
+          <div className="container p-4 mt-8 mb-6">
             <div className="row mt-32">
               <div className="col-md-8 offset-md-2">
                 <h3 className="text-center mt-3 my-3 uppercase">
@@ -101,7 +101,7 @@ function SearchCustomerAccount() {
                     <div className="w-full px-3">
                       <div className="mt-10"></div>
                       <button
-                        className="w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                        className="mb-6 w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
                         onClick={handleSubmit}
                       >
                         <i
@@ -114,26 +114,116 @@ function SearchCustomerAccount() {
                   </div>
                 </div>
                 {result !== null ? (
-                  <div className="p-3 mt-4">
-                    <div className="block w-full overflow-auto scrolling-touch text-center">
-                      <table className="w-full max-w-full mb-4 bg-transparent">
-                        <thead>
-                          <tr>
-                            <th scope="col">Account #</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Address</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">{result[0].accountNumber}</th>
-                            <td>{result[0].firstName}</td>
-                            <td>{result[0].lastName}</td>
-                            <td>{result[0].address}</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                  <div>
+                    <div className="flex flex-col sm:mb-0 mb-6">
+                      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className=" min-w-full py-2 hidden sm:px-6 lg:inline-block lg:px-8">
+                          <div className="overflow-x-auto">
+                            <table className="min-w-full">
+                              <thead className="border-b text-bold">
+                                <tr>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Account Number
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    First Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Last Name
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  >
+                                    Address
+                                  </th>
+                                  <th
+                                    scope="col"
+                                    className="px-6 py-2 text-left text-sm uppercase font-bold text-gray-900"
+                                  ></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr className="border-b">
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result[0].accountNumber === null
+                                      ? "N/A"
+                                      : result[0].accountNumber}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result[0].firstName === null
+                                      ? "N/A"
+                                      : result[0].firstName}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result[0].lastName === null
+                                      ? "N/A"
+                                      : result[0].lastName}
+                                  </td>
+                                  <td className="whitespace-nowrap px-6 py-2 text-sm font-light text-gray-900">
+                                    {result[0].address === null
+                                      ? "N/A"
+                                      : result[0].address}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex justify-center lg:hidden mb-6">
+                      <div className="block p-6 rounded-lg shadow-lg bg-white w-full ">
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">FIRST NAME</div>
+                          <div>
+                            <span className="">
+                              {result[0].accountNumber === null
+                                ? "N/A"
+                                : result[0].accountNumber}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid  grid-cols-2 mb-2">
+                          <div className="font-bold">LAST NAME</div>
+                          <div>
+                            <span className="">
+                              {result[0].firstName === null
+                                ? "N/A"
+                                : result[0].firstName}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">ADDRESS</div>
+                          <div>
+                            <span className="">
+                              {result[0].lastName === null
+                                ? "N/A"
+                                : result[0].lastName}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="sm:grid grid-cols-2 mb-2">
+                          <div className="font-bold">LICENSE NUMBER</div>
+                          <div>
+                            <span className="">
+                              {result[0].address === null
+                                ? "N/A"
+                                : result[0].address}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : null}

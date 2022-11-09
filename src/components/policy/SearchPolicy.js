@@ -121,13 +121,17 @@ function SearchPolicy() {
                         </button>
                       ) : (
                         <button
-                          className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          className="appearance-none w-full py-2 text-white bg-gray-500  rounded-md focus:outline-none"
                           onClick={handleSearch}
+                          disabled={true}
                         >
-                          <i
-                            className="fa-solid fa-magnifying-glass"
-                            style={{ marginRight: "10px" }}
-                          />
+                          <div
+                            class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
+                            role="status"
+                            aria-label="loading"
+                          >
+                            <span class="sr-only">Loading...</span>
+                          </div>
                           <span className="p-2">Search</span>
                         </button>
                       )}
@@ -527,6 +531,54 @@ function SearchPolicy() {
                                 <div>
                                   <span className="">
                                     {item.make === null ? "N/A" : item.make}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">MODEL</div>
+                                <div>
+                                  <span className="">
+                                    {item.model === null ? "N/A" : item.model}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">YEAR</div>
+                                <div>
+                                  <span className="">
+                                    {item.year === null ? "N/A" : item.year}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">TYPE</div>
+                                <div>
+                                  <span className="">
+                                    {item.type === null ? "N/A" : item.type}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">FUEL</div>
+                                <div>
+                                  <span className="">
+                                    {item.fuel === null ? "N/A" : item.fuel}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">COST</div>
+                                <div>
+                                  <span className="">
+                                    ${item.cost === null ? "N/A" : item.cost}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="sm:grid grid-cols-2 mb-2">
+                                <div className="font-bold">COLOR</div>
+                                <div>
+                                  <span className="">
+                                    {item.color === null ? "N/A" : item.color}
                                   </span>
                                 </div>
                               </div>
