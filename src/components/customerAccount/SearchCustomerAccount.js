@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../template/Header";
 import Services from "../api/Services";
 import { toast, ToastContainer } from "react-toastify";
@@ -10,6 +10,11 @@ function SearchCustomerAccount() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [result, getResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
   const changeInput = (e) => {
     let value = e.target.value;
@@ -17,9 +22,12 @@ function SearchCustomerAccount() {
     console.log(firstName + " -> " + lastName);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let customerAccount = { firstName: firstName, lastName: lastName };
+    setLoading(true);
+    await sleep(3000);
+    setLoading(false);
     Services.searchCustomerAccount(customerAccount)
       .then((res) => {
         let dao = JSON.stringify(res.data);
@@ -55,8 +63,12 @@ function SearchCustomerAccount() {
       });
   };
 
-  useEffect(() => {}, [result]);
-
+  const reset = (e) => {
+    e.preventDefault();
+    setFirstName("");
+    setLastName("");
+    getResult(null);
+  };
   return (
     <div>
       <Header />
@@ -68,13 +80,13 @@ function SearchCustomerAccount() {
           <div className="container p-4 mt-8 mb-6">
             <div className="row mt-32">
               <div className="col-md-8 offset-md-2">
-                <h3 className="text-center mt-3 my-3 uppercase">
+                <h3 className="text-center mt-3 mb-6 my-3 uppercase">
                   <b>Search Customer Account</b>
                 </h3>
                 <div className="card-body">
-                  <div className="grid-cols-3 lg:grid">
+                  <div className="grid-cols-2 lg:grid">
                     <div className="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold  mt-3">
                         First Name
                       </label>
                       <input
@@ -87,7 +99,7 @@ function SearchCustomerAccount() {
                       />
                     </div>
                     <div className="w-full px-3">
-                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold  mt-3">
                         Last Name
                       </label>
                       <input
@@ -100,15 +112,45 @@ function SearchCustomerAccount() {
                     </div>
                     <div className="w-full px-3">
                       <div className="mt-10"></div>
+                      {loading === false ? (
+                        <button
+                          className="mb-6 w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          onClick={handleSubmit}
+                        >
+                          <i
+                            className="fa-solid fa-magnifying-glass"
+                            style={{ marginRight: "10px" }}
+                          />
+                          <span className="p-2">Search</span>
+                        </button>
+                      ) : (
+                        <button
+                          className="w-full py-2 text-white bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          onClick={handleSubmit}
+                          disabled={true}
+                        >
+                          <div
+                            class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
+                            role="status"
+                            aria-label="loading"
+                            style={{ marginRight: "10px" }}
+                          >
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          <span className="p-2">Search</span>
+                        </button>
+                      )}
+                    </div>
+                    <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-0 sm:mt-0 mb-6">
                       <button
-                        className="mb-6 w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
-                        onClick={handleSubmit}
+                        className="appearance-none block w-full py-2 text-black bg-white-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-300 focus:outline-none"
+                        onClick={reset}
                       >
                         <i
-                          className="fa-solid fa-magnifying-glass"
+                          className="fa-solid fa-rotate-right"
                           style={{ marginRight: "10px" }}
                         />
-                        <span className="p-2">Search</span>
+                        <span className="p-2">Reset</span>
                       </button>
                     </div>
                   </div>

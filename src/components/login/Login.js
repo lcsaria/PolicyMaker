@@ -10,8 +10,8 @@ function Login() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
-      <div className="hidden sm:block bg-gray-100">
-        <img className="max-w-full h-full " src={bgimage} alt="Hello" />
+      <div className="hidden lg:block bg-gray-100">
+        <img className="h-full" src={bgimage} alt="Hello" />
       </div>
 
       <div className="bg-gray-100 flex flex-col justify-center">

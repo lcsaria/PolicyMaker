@@ -129,6 +129,7 @@ function SearchPolicy() {
                             class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
                             role="status"
                             aria-label="loading"
+                            style={{ marginRight: "10px" }}
                           >
                             <span class="sr-only">Loading...</span>
                           </div>
