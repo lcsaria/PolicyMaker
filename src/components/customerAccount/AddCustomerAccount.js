@@ -58,8 +58,8 @@ function AddCustomerAccount() {
       await sleep(3000);
       setLoading(false);
       Services.searchAccountNumber(accountNumber)
-        .then(() => {
-          // if exists
+        .then((res) => {
+          console.log();
           toast.error("Account number invalid.", {
             position: "top-right",
             autoClose: 5000,

@@ -23,6 +23,7 @@ function AddPolicy() {
     expirationDate: null,
     type: 0,
     vehicles: null,
+    status: 1,
   });
 
   const [error, setError] = useState({ isValid: false });
