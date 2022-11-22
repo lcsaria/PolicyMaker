@@ -63,7 +63,10 @@ function CancelPolicy() {
       });
   };
 
-  const submit = () => {
+  const submit = async () => {
+    setLoading(true);
+    await sleep(3000);
+    setLoading(false);
     setShowModal(false);
     console.log("cancel");
   };
