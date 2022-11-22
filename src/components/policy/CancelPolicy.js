@@ -1,19 +1,22 @@
 import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import Services from "../api/Services";
 import Header from "../template/Header";
 import Sidebar from "../template/Sidebar";
 
 function CancelPolicy() {
-  const [policyNumber, setPolicyNumber] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isExist, setExist] = useState(false);
-  const [policy, setPolicy] = useState({
+  let [policyNumber, setPolicyNumber] = useState("");
+  let [loading, setLoading] = useState(false);
+  let [isExist, setExist] = useState(false);
+  let [policy, setPolicy] = useState({
     policy: {
       policyNumber: null,
       effectiveDate: null,
       expirationDate: null,
     },
   });
+
+  const [showModal, setShowModal] = useState(false);
 
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -44,11 +47,30 @@ function CancelPolicy() {
         let dao = JSON.stringify(res.data);
         setPolicy(JSON.parse(dao));
         console.log(policy);
+        toast.success("Customer account found.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         setExist(true);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const submit = () => {
+    setShowModal(false);
+    console.log("cancel");
+  };
+
+  const cancel = () => {
+    setShowModal(false);
+    console.log("not cancel");
   };
   return (
     <div>
@@ -153,7 +175,6 @@ function CancelPolicy() {
                         <div className="w-full px-3">
                           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
                             Status
-                            
                           </label>
                           <span>
                             {policy.policy.status === 1
@@ -162,9 +183,14 @@ function CancelPolicy() {
                           </span>
                         </div>
                       </div>
-                      <div className="mt-10">
+                      <div className="mt-10 text-center">
                         {policy.policy.status === 1 ? (
-                          <button className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none">
+                          <button
+                            onClick={() => {
+                              setShowModal(true);
+                            }}
+                            className="appearance-none w-2/3 py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          >
                             <i
                               className="fa-solid fa-xmark"
                               style={{ marginRight: "10px" }}
@@ -176,11 +202,47 @@ function CancelPolicy() {
                     </div>
                   )}
                 </div>
+                {showModal ? (
+                  <>
+                    <div className="fixed inset-0 z-10 overflow-y-auto">
+                      <div
+                        className="fixed inset-0 w-full h-full bg-black opacity-40"
+                        onClick={() => setShowModal(false)}
+                      ></div>
+                      <div className="flex items-center min-h-screen px-4 py-8">
+                        <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
+                          <div className="mt-3q">
+                            <div className="mt-2 text-center sm:ml-4 sm:text-left">
+                              <h4 className="text-lg font-medium text-gray-800">
+                                Do you want to cancel policy?
+                              </h4>
+                              <div className="items-center gap-2 mt-3 sm:flex">
+                                <button
+                                  className="w-full mt-2 p-2.5 flex-1 text-white bg-red-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
+                                  onClick={submit}
+                                >
+                                  Confirm
+                                </button>
+                                <button
+                                  className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
+                                  onClick={cancel}
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
