@@ -79,7 +79,16 @@ function CancelPolicy() {
     setShowModal(false);
     console.log("cancel");
     Services.cancelPolicy(policy.policy).then((res) => {
-      console.log(res);
+      toast.success("Policy found.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      handleSearch();
     });
   };
 
@@ -214,8 +223,8 @@ function CancelPolicy() {
                           </button>
                         ) : (
                           <div>
-                            Kindly contact to the administrator if there's a
-                            problem
+                            If there is a problem, kindly contact the
+                            administrator
                           </div>
                         )}
                       </div>

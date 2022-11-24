@@ -22,7 +22,7 @@ export const Sidebardata = [
   {
     title: "File Claim",
     icon: <i className="fas fa-money-bill " />,
-    link: "/claim/file",
+    link: "/claim/create",
   },
   {
     title: "Search Customer Account",

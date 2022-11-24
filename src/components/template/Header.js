@@ -6,7 +6,7 @@ function Header() {
   return (
     <div className="min-h-full">
       <nav className="bg-gray-800">
-        <div className="mx-auto max-w-7xl px-4 sm:px-10 lg:px-8">
+        <div className="max-w-7xl px-4 sm:px-10 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center">
               <div className="flex-shrink-0">
