@@ -7,6 +7,7 @@ import Sidebar from "../template/Sidebar";
 function CancelPolicy() {
   let [policyNumber, setPolicyNumber] = useState("");
   let [loading, setLoading] = useState(false);
+  let [isCancel, setCancel] = useState(false);
   let [isExist, setExist] = useState(false);
   let [policy, setPolicy] = useState({
     policy: {
@@ -47,7 +48,7 @@ function CancelPolicy() {
         let dao = JSON.stringify(res.data);
         setPolicy(JSON.parse(dao));
         console.log(policy);
-        toast.success("Customer account found.", {
+        toast.success("Policy found.", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -59,16 +60,27 @@ function CancelPolicy() {
         setExist(true);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Policy not found.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
   };
 
   const submit = async () => {
-    setLoading(true);
+    setCancel(true);
     await sleep(3000);
-    setLoading(false);
+    setCancel(false);
     setShowModal(false);
     console.log("cancel");
+    Services.cancelPolicy(policy.policy).then((res) => {
+      console.log(res);
+    });
   };
 
   const cancel = () => {
@@ -200,7 +212,12 @@ function CancelPolicy() {
                             />
                             <span className="p-2">Cancel</span>
                           </button>
-                        ) : null}
+                        ) : (
+                          <div>
+                            Kindly contact to the administrator if there's a
+                            problem
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
@@ -220,12 +237,22 @@ function CancelPolicy() {
                                 Do you want to cancel policy?
                               </h4>
                               <div className="items-center gap-2 mt-3 sm:flex">
-                                <button
-                                  className="w-full mt-2 p-2.5 flex-1 text-white bg-red-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
-                                  onClick={submit}
-                                >
-                                  Confirm
-                                </button>
+                                {isCancel === true ? (
+                                  <button
+                                    className="w-full mt-2 p-2.5 flex-1 text-white bg-red-300 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
+                                    disabled={true}
+                                    onClick={submit}
+                                  >
+                                    Confirm
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="w-full mt-2 p-2.5 flex-1 text-white bg-red-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
+                                    onClick={submit}
+                                  >
+                                    Confirm
+                                  </button>
+                                )}
                                 <button
                                   className="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
                                   onClick={cancel}
