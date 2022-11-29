@@ -1,11 +1,29 @@
 import React, { useState } from "react";
+import Services from "../api/Services";
 import Header from "../template/Header";
 import Sidebar from "../template/Sidebar";
+import Stepper from "react-stepper-js";
 
 function Claim() {
   let [policyNumber, setPolicyNumber] = useState("");
   let [loading, setLoading] = useState(false);
+  let [isExist, changeExist] = useState(false);
+  let [step, setStep] = useState(0);
+  async function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
+  const nextStep = () => {
+    if (step < 1) {
+      setStep(step + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (step === 1) {
+      setStep(step - 1);
+    }
+  };
   const changeInput = (e) => {
     let value = e.target.value;
 
@@ -15,8 +33,21 @@ function Claim() {
     }
   };
 
-  const handleSearch = () => {
+  const handleSearch = async (e) => {
+    // searching policy number
+    let policy = { policyNumber: policyNumber };
+    setLoading(true);
+    await sleep(3000);
     setLoading(false);
+    Services.searchPolicy(policy)
+      .then(async (res) => {
+        let dao = JSON.stringify(res.data);
+        console.log(dao);
+        changeExist(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const reset = () => {
@@ -30,72 +61,153 @@ function Claim() {
           <Sidebar />
         </div>
         <div id="content">
-          <div className="container p-4 mt-8">
+          <div className="container p-4 mt-8 mb-6 ">
             <div className="row mt-32">
               <div className="col-md-10 offset-md-1">
                 <h3 className="text-center mt-3 my-3 uppercase">
                   <b>File Claim</b>
                 </h3>
               </div>
-              <div className="card-body">
-                <div className="grid-cols-3 gap-0 lg:grid">
-                  <div className="w-full px-3 mb-2 ">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
-                      Policy Number
-                    </label>
-                    <input
-                      type="text"
-                      className="appearance-none block w-full  border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
-                      name="policyNumber"
-                      value={policyNumber}
-                      onChange={changeInput}
-                      maxLength={6}
-                    />
-                  </div>
-                  <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3  mb-2">
-                    {loading === false ? (
+              {isExist === false ? (
+                <div className="card-body">
+                  <div className="grid-cols-3 gap-0 lg:grid">
+                    <div className="w-full px-3 mb-2 ">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                        Policy Number
+                      </label>
+                      <input
+                        type="text"
+                        className="appearance-none block w-full  border border-gray-400 rounded py-2 px-2 leading-tight outline-none focus:border-gray-500"
+                        name="policyNumber"
+                        value={policyNumber}
+                        onChange={changeInput}
+                        maxLength={6}
+                      />
+                    </div>
+                    <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3  mb-2">
+                      {loading === false ? (
+                        <button
+                          className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
+                          onClick={handleSearch}
+                        >
+                          <i
+                            className="fa-solid fa-magnifying-glass"
+                            style={{ marginRight: "10px" }}
+                          />
+                          <span className="p-2">Search</span>
+                        </button>
+                      ) : (
+                        <button
+                          className="appearance-none w-full py-2 text-white bg-gray-500  rounded-md focus:outline-none"
+                          onClick={handleSearch}
+                          disabled={true}
+                        >
+                          <div
+                            className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
+                            role="status"
+                            aria-label="loading"
+                            style={{ marginRight: "10px" }}
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                          <span className="p-2">Search</span>
+                        </button>
+                      )}
+                    </div>
+                    <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3 ">
                       <button
-                        className="appearance-none w-full py-2 text-white bg-gray-900 hover:bg-gray-500  hover:-translate-y-0.5 transform transition rounded-md focus:outline-none"
-                        onClick={handleSearch}
+                        className="appearance-none block w-full py-2 text-black bg-white-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-300 focus:outline-none"
+                        onClick={reset}
                       >
                         <i
-                          className="fa-solid fa-magnifying-glass"
+                          className="fa-solid fa-rotate-right"
                           style={{ marginRight: "10px" }}
                         />
-                        <span className="p-2">Search</span>
+                        <span className="p-2">Reset</span>
                       </button>
-                    ) : (
-                      <button
-                        className="appearance-none w-full py-2 text-white bg-gray-500  rounded-md focus:outline-none"
-                        onClick={handleSearch}
-                        disabled={true}
-                      >
-                        <div
-                          class="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
-                          role="status"
-                          aria-label="loading"
-                          style={{ marginRight: "10px" }}
-                        >
-                          <span class="sr-only">Loading...</span>
-                        </div>
-                        <span className="p-2">Search</span>
-                      </button>
-                    )}
+                    </div>
                   </div>
-                  <div className="w-full px-3  xl:mt-10 lg:mt-10 md:mt-3 sm:mt-3 ">
+                </div>
+              ) : (
+                <div>
+                  <Stepper
+                    color="#212121"
+                    fontSize="16px"
+                    fontColor="#000000"
+                    steps={[{ label: "FILE CLAIM" }, { label: "CONFIRM" }]}
+                    currentStep={step}
+                  />
+
+                  <div className="d-flex justify-content-around mt-5">
+                    {step > 0 ? (
+                      <button
+                        className="w-25 py-2 text-black bg-white-700 hover:bg-gray-500 rounded-md border  hover:-translate-y-1 transform transition focus:outline-none mt-3"
+                        onClick={prevStep}
+                      >
+                        <i
+                          className="fa-solid fa-arrow-left"
+                          style={{ marginRight: "1em" }}
+                        />
+                        Back
+                      </button>
+                    ) : null}
                     <button
-                      className="appearance-none block w-full py-2 text-black bg-white-700 rounded-md  border  hover:-translate-y-1 transform transition hover:bg-gray-300 focus:outline-none"
-                      onClick={reset}
+                      className="w-25 py-2 text-white bg-gray-700 hover:bg-gray-500 hover:-translate-y-1 transform transition rounded-md focus:outline-none mt-3"
+                      onClick={nextStep}
                     >
-                      <i
-                        className="fa-solid fa-rotate-right"
-                        style={{ marginRight: "10px" }}
-                      />
-                      <span className="p-2">Reset</span>
+                      {step === 1 ? (
+                        <>
+                          {loading === false ? (
+                            <>
+                              <span>Submit</span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-white">
+                                <div
+                                  className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
+                                  role="status"
+                                  aria-label="loading"
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              </span>
+                              <span>Submit</span>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {loading === false ? (
+                            <>
+                              <span>Next</span>
+                              <i
+                                className="fa-solid fa-arrow-right"
+                                style={{ marginLeft: "1em" }}
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <span>Next</span>
+                              <span className="text-white">
+                                <div
+                                  className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
+                                  role="status"
+                                  aria-label="loading"
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              </span>
+                            </>
+                          )}
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
