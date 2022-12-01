@@ -9,8 +9,8 @@ import Services from "../api/Services";
 import Header from "../template/Header";
 import Sidebar from "../template/Sidebar";
 
-import "react-stepper-js/dist/index.css";
-import "react-datepicker/dist/react-datepicker.css";
+  import "react-stepper-js/dist/index.css";
+  import "react-datepicker/dist/react-datepicker.css";
 
 function AddPolicy() {
   const [step, setStep] = useState(0);
