@@ -18,6 +18,10 @@ function Claim() {
   let [claim, setClaim] = useState({
     claimNumber: null,
     date: null,
+    address: null,
+    description: null,
+    damageDescription: null,
+    cost: null,
   });
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -198,12 +202,72 @@ function Claim() {
                                   : null
                               }
                               className="appearance-none w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
-                              name="effectiveDate"
+                              name="date"
                               value={claim.date === null ? "" : claim.date}
                               onChange={handleDateInput}
                               isClearable
                             />
                           </div>
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            Address
+                          </label>
+                          <input
+                            className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                            type="text"
+                            name="address"
+                            id="address"
+                            value={claim.address === null ? "" : claim.address}
+                            onChange={handleInput}
+                          />
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            Description of Accident
+                          </label>
+                          <input
+                            className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                            type="text"
+                            name="description"
+                            id="description"
+                            value={
+                              claim.description === null
+                                ? ""
+                                : claim.description
+                            }
+                            onChange={handleInput}
+                          />
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            Damage Description
+                          </label>
+                          <input
+                            className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                            type="text"
+                            name="damageDescription"
+                            id="damagedescription"
+                            value={
+                              claim.damageDescription === null
+                                ? ""
+                                : claim.damageDescription
+                            }
+                            onChange={handleInput}
+                          />
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            cost
+                          </label>
+                          <input
+                            className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
+                            type="text"
+                            name="cost"
+                            id="cost"
+                            value={claim.cost === null ? "" : claim.cost}
+                            onChange={handleInput}
+                          />
                         </div>
                       </div>
                     )}
