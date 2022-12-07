@@ -16,13 +16,16 @@ function Claim() {
   let [step, setStep] = useState(0);
 
   let [claim, setClaim] = useState({
-    claimNumber: null,
+    claimNumber: "C",
     date: null,
     address: null,
     description: null,
     damageDescription: null,
     cost: null,
   });
+
+  const regexClaim = /[C][0-9]{0,5}/;
+
   async function sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -56,7 +59,7 @@ function Claim() {
     Services.searchPolicy(policy)
       .then(async (res) => {
         let dao = JSON.stringify(res.data);
-        console.log(dao);
+        console.log(dao.policyNumber);
         changeExist(true);
       })
       .catch((err) => {
@@ -71,7 +74,13 @@ function Claim() {
   const handleInput = (e) => {
     e.preventDefault();
     if (step === 0) {
-      setClaim({ ...claim, [e.target.name]: e.target.value });
+      if (e.target.name === "claimNumber") {
+        if (regexClaim.test(e.target.value)) {
+          setClaim({ ...claim, [e.target.name]: e.target.value });
+        }
+      } else {
+        setClaim({ ...claim, [e.target.name]: e.target.value });
+      }
     }
   };
 
@@ -179,15 +188,15 @@ function Claim() {
                             <input
                               className="appearance-none block w-full  border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                               type="text"
-                              name="policyNumber"
-                              id="policyNumber"
+                              name="claimNumber"
+                              id="claimNumber"
                               value={
                                 claim.claimNumber === null
                                   ? ""
                                   : claim.claimNumber
                               }
                               onChange={handleInput}
-                              maxLength={6}
+                              maxLength={7}
                             />
                           </div>
                           <div className="w-full px-3">
@@ -203,7 +212,9 @@ function Claim() {
                               }
                               className="appearance-none w-full border border-gray-400 rounded py-3 px-2 leading-tight outline-none focus:border-gray-500"
                               name="date"
-                              value={claim.date === null ? "" : claim.date}
+                              value={
+                                claim.date === null ? "" : new Date(claim.date)
+                              }
                               onChange={handleDateInput}
                               isClearable
                             />
