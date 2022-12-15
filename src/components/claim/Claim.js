@@ -5,6 +5,7 @@ import Header from "../template/Header";
 import Sidebar from "../template/Sidebar";
 import Stepper from "react-stepper-js";
 import DatePicker from "react-datepicker";
+import { toast, ToastContainer } from "react-toastify";
 
 import "react-stepper-js/dist/index.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,6 +15,7 @@ function Claim() {
   let [loading, setLoading] = useState(false);
   let [isExist, changeExist] = useState(false);
   let [step, setStep] = useState(0);
+  let [next, setNext] = useState(false);
 
   let [claim, setClaim] = useState({
     claimNumber: "C",
@@ -30,9 +32,15 @@ function Claim() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  const nextStep = () => {
+  const nextStep = async () => {
+    setNext(true);
+    await sleep(3000);
+    setNext(false);
     if (step < 1) {
       setStep(step + 1);
+    }
+    if (step === 1) {
+      submit();
     }
   };
 
@@ -94,6 +102,24 @@ function Claim() {
     }
   };
 
+  const submit = () => {
+    let value = { ...claim, policyNumber: policyNumber };
+    console.log(value);
+    Services.fileClaim(value).then((res) => {
+      console.log(res);
+      toast.success("Successfully file claim!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setStep(0);
+      changeExist(false);
+    });
+  };
   return (
     <div>
       <Header />
@@ -282,6 +308,66 @@ function Claim() {
                         </div>
                       </div>
                     )}
+                    {step === 1 && (
+                      <div className="container p-5 -mx-10 mb-6">
+                        <div className="text-center text-lg uppercase">
+                          <h2>
+                            Claim #
+                            {claim.claimNumber === null
+                              ? "N/A"
+                              : claim.claimNumber}
+                          </h2>
+                        </div>
+                        <div className="grid-cols-2 lg:grid sm:mt-0 mt-5">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Date Filed
+                            </label>
+                            <span>
+                              {claim.date === null ? "N/A" : claim.date}
+                            </span>
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Address
+                            </label>
+                            <span>
+                              {claim.address === null ? "N/A" : claim.address}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="grid-cols-2 lg:grid">
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Description of Accident
+                            </label>
+                            <span>
+                              {claim.description === null
+                                ? "N/A"
+                                : claim.description}
+                            </span>
+                          </div>
+                          <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                              Damage Description
+                            </label>
+                            <span>
+                              {claim.damageDescription === null
+                                ? "N/A"
+                                : claim.damageDescription}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="w-full px-3">
+                          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-3">
+                            Cost
+                          </label>
+                          <span>
+                            ${claim.cost === null ? "N/A" : claim.cost}
+                          </span>
+                        </div>
+                      </div>
+                    )}
                     <div className="d-flex justify-content-around mt-5">
                       {step > 0 ? (
                         <button
@@ -301,7 +387,7 @@ function Claim() {
                       >
                         {step === 1 ? (
                           <>
-                            {loading === false ? (
+                            {next === false ? (
                               <>
                                 <span>Submit</span>
                               </>
@@ -323,7 +409,7 @@ function Claim() {
                           </>
                         ) : (
                           <>
-                            {loading === false ? (
+                            {next === false ? (
                               <>
                                 <span>Next</span>
                                 <i
@@ -339,7 +425,7 @@ function Claim() {
                                     className="animate-spin inline-block w-4 h-4 border-[3px] border-current border-t-transparent text-white rounded-full dark:text-gray-800"
                                     role="status"
                                     aria-label="loading"
-                                    style={{ marginRight: "10px" }}
+                                    style={{ marginLeft: "10px" }}
                                   >
                                     <span className="sr-only">Loading...</span>
                                   </div>
@@ -357,6 +443,7 @@ function Claim() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

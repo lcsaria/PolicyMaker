@@ -12,6 +12,7 @@ import SearchPolicy from "./components/policy/SearchPolicy";
 import PageNotFound from "./components/template/PageNotFound";
 import CancelPolicy from "./components/policy/CancelPolicy";
 import Claim from "./components/claim/Claim";
+import SearchClaim from "./components/claim/SearchClaim";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/policy/search" element={<SearchPolicy />} />
         <Route path="/policy/cancel" element={<CancelPolicy />} />
         <Route path="/claim/create" element={<Claim />} />
+        <Route path="/claim/search" element={<SearchClaim />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
