@@ -67,11 +67,35 @@ function Claim() {
     Services.searchPolicy(policy)
       .then(async (res) => {
         let dao = JSON.stringify(res.data);
-        console.log(dao.policyNumber);
+        console.log(dao);
         changeExist(true);
+        toast.success(
+          "Policy #" + policy.policyNumber + " exists. Ready to file a claim",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       })
       .catch((err) => {
         console.log(err);
+        toast.error(
+          "Policy #" + policy.policyNumber + " does not exist. Try again",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       });
   };
 
