@@ -126,7 +126,7 @@ function Claim() {
     }
   };
 
-  const submit = () => {
+ function submit ()  {
     let value = { ...claim, policyNumber: policyNumber };
     console.log(value);
     Services.fileClaim(value).then((res) => {
