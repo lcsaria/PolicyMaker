@@ -12,6 +12,7 @@ const ADD_VEHICLES_BASE_URL = "http://localhost:8080/api/v1/vehicles";
 const SEARCH_POLICY_BASE_URL = "http://localhost:8080/api/v1/policy/search";
 const CANCEL_POLICY_BASE_URL = "http://localhost:8080/api/v1/policy/cancel";
 const FILE_CLAIM_BASE_URL = "http://localhost:8080/api/v1/claim";
+const SEARCH_CLAIM_BASE_URL = "http://localhost:8080/api/v1/claim/search";
 
 class Services {
   async createCustomerAccount(customerAccount) {
@@ -48,6 +49,10 @@ class Services {
 
   async fileClaim(claim) {
     return await axios.post(FILE_CLAIM_BASE_URL, claim);
+  }
+
+  async searchClaim(claim) {
+    return await axios.post(SEARCH_CLAIM_BASE_URL, claim);
   }
 }
 
